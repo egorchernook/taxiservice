@@ -12,6 +12,9 @@ public class Main {
         }
 
         Person person = new Person("Alex");
-        System.out.println(person);
+        System.out.println( person );
+
+        User user = new User( "Ivan", "88005553535", 1);
+        System.out.println( user );
     }
 }
