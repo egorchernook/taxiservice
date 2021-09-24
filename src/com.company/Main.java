@@ -1,6 +1,7 @@
 package com.company;
 
 import people.*;
+import address.*;
 
 import java.util.Iterator;
 
@@ -23,5 +24,15 @@ public class Main {
         userCollection.add( user );
         userCollection.add( ( new User("John", "89547286518", 2)));
         System.out.println( userCollection );
+
+        System.out.println("\n");
+
+        Address address = new Address("Mira 90");
+        System.out.println( address );
+
+        AddressCollection AddressCollection = new AddressCollection();
+        AddressCollection.add( address );
+        AddressCollection.add( ( new Address("Mira 110")));
+        System.out.println( AddressCollection );
     }
 }
