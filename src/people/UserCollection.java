@@ -1,11 +1,15 @@
 package people;
+import controllers.*;
+import controllers.Addable;
+import controllers.Deletable;
+import controllers.Findable;
 
 import java.util.*;
 
 public class UserCollection
         implements Addable<User>,
-            Deletable<User>,
-            Findable<User> {
+        Deletable<User>,
+        Findable<User> {
     private Map<Long, User> userMap = new HashMap<>();
 
     public UserCollection() {}
