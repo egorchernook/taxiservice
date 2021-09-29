@@ -1,4 +1,4 @@
-package address;
+package controllers;
 
 public interface Deletable<Type> {
 

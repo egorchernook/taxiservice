@@ -1,5 +1,5 @@
 package people;
-
+import controllers.*;
 import java.util.Objects;
 
 public class User extends Person {
