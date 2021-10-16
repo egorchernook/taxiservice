@@ -35,6 +35,10 @@ public class OrderCollection
         orderMap.remove( element.getId() );
     }
 
+    public void clear(){
+        orderMap.clear();
+    }
+
     @Override
     public Order find(String pattern) {
         for ( Order a : orderMap.values() ){

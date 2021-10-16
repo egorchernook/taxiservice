@@ -10,14 +10,14 @@ public class Person implements Identifiable {
 
     public Person(){
         counter++;
-        name=null;
-        id = counter;
+        this.name=null;
+        this.id = counter;
     }
 
     public Person(String name){
         counter++;
         this.name=name;
-        id = counter;
+        this.id = counter;
     }
 
     public String getName() {

@@ -32,6 +32,10 @@ public class AddressCollection
             addressMap.remove( element.getId() );
     }
 
+    public void clear(){
+        addressMap.clear();
+    }
+
     @Override
     public Address find(String pattern) {
         for ( Address a : addressMap.values() ){

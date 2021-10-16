@@ -38,6 +38,10 @@ public class ClientCollection
         clientMap.remove(element.getId());
     }
 
+    public void clear(){
+        clientMap.clear();
+    }
+
     @Override
     public Client find(String pattern) {
         for (Client a : clientMap.values()) {

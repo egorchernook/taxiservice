@@ -7,6 +7,11 @@ public class User extends Person {
     private String login;
     private Integer password;
 
+    public User(){
+        this.login = null;
+        this.password = null;
+    }
+
     public User(String login) {
         this.login = login;
         this.password = 1;
@@ -41,8 +46,7 @@ public class User extends Person {
 
     @Override
     public String toString() {
-        return super.toString() + " && " +
-                "User{" +
+        return  "User{" +
                 "login='" + login + '\'' +
                 ", password=" + password +
                 '}';

@@ -6,7 +6,7 @@ import  people.users.User;
 import java.util.Objects;
 
 public class Client extends User {
-    private String phoneNumber;
+    private String phoneNumber = null;
     private Integer rate = 500;
     private OrderCollection orderCollection = new OrderCollection();
 
