@@ -9,9 +9,8 @@ public class Person implements Identifiable {
     private String name;
 
     public Person(){
-        counter++;
         this.name=null;
-        this.id = counter;
+        this.id = -1L;
     }
 
     public Person(String name){

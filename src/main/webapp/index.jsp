@@ -9,8 +9,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <jsp:useBean id="tempOrder" class="controllers.OrderController" scope="session" />
-<jsp:useBean id="currentPerson" class="people.Person" scope="session">
-</jsp:useBean>
+<jsp:useBean id="currentPerson" class="people.Person" scope="session"/>
 
 <html>
 <head>

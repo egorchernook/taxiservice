@@ -38,11 +38,16 @@ public class UserCollection
         userMap.remove( element.getId() );
     }
 
+    public void clear(){
+        userMap.clear();
+    }
+
     @Override
     public User find(String pattern) {
         for ( User u : userMap.values() ){
             if ( ( (u.getName() != null ) && u.getName().equals(pattern)) ||
-                 ( (u.getLogin() != null ) && u.getLogin().equals(pattern))){
+                 ( (u.getLogin() != null ) && u.getLogin().equals(pattern)) ||
+                 ( (u.getId() != null ) && u.getId().equals( Long.parseLong(pattern)))) {
                 return u;
             }
         }
@@ -54,7 +59,8 @@ public class UserCollection
         Set<User> userSet = new HashSet<>();
         for ( User u : userMap.values() ){
             if ( ( (u.getName() != null ) && u.getName().equals(pattern)) ||
-                    ( (u.getLogin() != null ) && u.getLogin().equals(pattern))){
+                    ( (u.getLogin() != null ) && u.getLogin().equals(pattern)) ||
+                    ( (u.getId() != null ) && u.getId().equals( Long.parseLong(pattern)))) {
                 userSet.add(u);
             }
         }
