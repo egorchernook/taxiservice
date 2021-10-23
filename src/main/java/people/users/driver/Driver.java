@@ -7,15 +7,13 @@ import people.users.User;
 import java.util.Objects;
 
 public class Driver extends User {
-    private String name;
     private Car car;
     private Integer rate = 500;
     private String passport;
     private OrderCollection orderCollection = new OrderCollection();
 
-    public Driver(String name, Car car, String passport) {
-        super(name);
-        this.name = name;
+    public Driver(String name, String login, Integer password, Car car, String passport) {
+        super(name, login, password);
         this.car = car;
         this.passport = passport;
     }

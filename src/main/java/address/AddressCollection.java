@@ -32,6 +32,14 @@ public class AddressCollection
             addressMap.remove( element.getId() );
     }
 
+    public boolean isEmpty(){
+        return addressMap.isEmpty();
+    }
+
+    public int size(){
+        return addressMap.size();
+    }
+
     public void clear(){
         addressMap.clear();
     }

@@ -17,6 +17,7 @@ public class ClientCollection
     private Map<Long, Client> clientMap = new HashMap<>();
 
     public ClientCollection() {
+        this.test();
     }
 
     public ClientCollection(Map < Long, Client > DriverMap) {
@@ -68,5 +69,12 @@ public class ClientCollection
         return "ClientCollection{" +
                 "clientMap=" + clientMap +
                 '}';
+    }
+
+    private void test(){
+        this.add( new Client( "Егор", "8888888888", "1".hashCode() ) );
+        this.add( new Client( "Гоша", "7777777777", "1".hashCode() ) );
+        this.add( new Client( "Мадина", "6666666666", "1".hashCode() ) );
+        this.add( new Client( "Клава", "5555555555", "1".hashCode() ) );
     }
 }

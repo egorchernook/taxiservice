@@ -8,8 +8,8 @@ public class Operator extends User {
     private String tabNumber;
     private String passport;
 
-    public Operator(String tabNumber, String passport) {
-        super(tabNumber);
+    public Operator(String name, String tabNumber, Integer password, String passport) {
+        super(name, tabNumber, password);
         this.tabNumber = tabNumber;
         this.passport = passport;
     }

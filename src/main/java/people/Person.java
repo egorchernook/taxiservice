@@ -8,7 +8,7 @@ public class Person implements Identifiable {
     private Long id;
     private String name;
 
-    public Person(){
+    protected Person(){
         this.name=null;
         this.id = -1L;
     }

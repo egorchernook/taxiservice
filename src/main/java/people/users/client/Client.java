@@ -15,6 +15,11 @@ public class Client extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public Client(String name, String phoneNumber, Integer password) {
+        super(name, phoneNumber, password);
+        this.phoneNumber = phoneNumber;
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
