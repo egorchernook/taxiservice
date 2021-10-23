@@ -15,6 +15,9 @@ public class Order implements Identifiable {
     private Integer price;
     private Date orderDate = new Date();
 
+    public Order() {
+    }
+
     public Order(AddressCollection addressCollection, Integer price, Date orderDate) {
         this.number = counter++;
         this.addressCollection = addressCollection;

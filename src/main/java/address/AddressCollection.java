@@ -11,42 +11,46 @@ public class AddressCollection
         Findable<Address>,
         Iterable<Address>
 {
-    private Map<Long, Address> addressMap = new HashMap<>();
+    private List<Address> addressList = new LinkedList<>();
 
     public AddressCollection() {}
-    public AddressCollection(Map<Long, Address>  addressMap) {this.addressMap = addressMap;}
+    public AddressCollection(List<Address>  addressList) {this.addressList = addressList;}
 
     @Override
-    public Iterator<Address> getCollectionIterator(){return addressMap.values().iterator();}
+    public Iterator<Address> getCollectionIterator(){return addressList.iterator();}
 
     @Override
-    public String toString() { return addressMap.toString(); }
+    public String toString() { return addressList.toString(); }
 
     @Override
     public void add(Address element) {
-        addressMap.put( element.getId(), element );
+        addressList.add( element );
     }
 
     @Override
     public void delete(Address element) {
-            addressMap.remove( element.getId() );
+        addressList.remove( element );
+    }
+
+    public Address delete_back(){
+        return addressList.remove( addressList.size() - 1);
     }
 
     public boolean isEmpty(){
-        return addressMap.isEmpty();
+        return addressList.isEmpty();
     }
 
     public int size(){
-        return addressMap.size();
+        return addressList.size();
     }
 
     public void clear(){
-        addressMap.clear();
+        addressList.clear();
     }
 
     @Override
     public Address find(String pattern) {
-        for ( Address a : addressMap.values() ){
+        for ( Address a : addressList ){
             if (  (a.getName() != null ) && a.getName().equals(pattern)){
                 return a;
             }
@@ -57,7 +61,7 @@ public class AddressCollection
     @Override
     public Set<Address> findAll(String pattern) {
         Set<Address> addressesSet = new HashSet<>();
-        for ( Address a : addressMap.values() ){
+        for ( Address a : addressList ){
             if (  (a.getName() != null ) && a.getName().equals(pattern)){
                 addressesSet.add(a);
             }

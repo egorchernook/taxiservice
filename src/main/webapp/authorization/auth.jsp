@@ -14,6 +14,13 @@
 </head>
 <body>
     <%
+        String errorMessage = request.getParameter("error");
+        %>
+        <jsp:include page="../utility/errorFrame.jsp">
+            <jsp:param name="message" value="<%=errorMessage%>"/>
+        </jsp:include>
+        <%
+
         String userType_ = request.getParameter("userType");
         String placeholder_ = "";
         String pattern_ = "";
@@ -35,7 +42,7 @@
                 labelText = "Ваш табельный номер";
                 break;
         }
-        // it seems like it only works normally ( with equals() ) with java 7 or bigger
+        // it seems like switch statement only works normally ( with equals() ) with java 7 or bigger
     %>
     <div class="loginField">
         <form action="userAuth.jsp" method="post">
@@ -45,14 +52,21 @@
                      <td>
                          <input type="hidden" name="userType" value=<%=userType_%>>
                          <label>
-                             <input type="text" name="login" placeholder=<%=placeholder_%> pattern="pattern_" required/>
-                             <%=labelText%>
+                             <input type="text" name="login" placeholder=<%=placeholder_%>; pattern=<%=pattern_%> required/>
+                             <span> <%=labelText%> </span>
                          </label>
                      </td>
+                 </tr>
+                 <tr>
                      <td>
                          <label>
-                             <input type="password" placeholder="Пароль" required>
+                             <input type="password" name="password" placeholder="Пароль" required>
                          </label>
+                     </td>
+                 </tr>
+                 <tr>
+                     <td>
+                        <input type="submit" value="Войти"/>
                      </td>
                  </tr>
              </table>

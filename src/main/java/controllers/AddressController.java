@@ -10,6 +10,10 @@ public class AddressController {
     public AddressController() {
     }
 
+    public AddressController(AddressCollection addressCollection) {
+        this.addressCollection = addressCollection;
+    }
+
     public void add(Address address){
         addressCollection.add(address);
     }
@@ -22,6 +26,21 @@ public class AddressController {
         addressCollection.clear();
     }
 
+    public boolean isEmpty(){
+        return addressCollection.isEmpty();
+    }
+
+    public AddressCollection getAddressCollection() {
+        return addressCollection;
+    }
+
+    public void setAddressCollection(AddressCollection addressCollection) {
+        this.addressCollection = addressCollection;
+    }
+
+    public int size(){
+        return addressCollection.size();
+    }
     public Address find(String pattern){
         return addressCollection.find(pattern);
     }
