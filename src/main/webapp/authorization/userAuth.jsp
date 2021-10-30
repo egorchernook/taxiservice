@@ -8,13 +8,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="TITLE" class="java.lang.String" scope="application"/>
 <jsp:useBean id="clientsList" class="controllers.ClientController" scope="application"/>
 <jsp:useBean id="currentUser" class="people.users.User" scope="session"/>
 
 <html>
 <head>
-    <title><%=TITLE%></title>
+    <title>Просто Лучшее Такси</title>
 </head>
 <body>
 
@@ -25,7 +24,7 @@
         switch( action_ ) {
             case "fast":
                 String phoneNumber_ = request.getParameter("phoneNumber");
-                currentUser = new Client( phoneNumber_ );
+                currentUser.copy( new Client( phoneNumber_ ) );
                 %>
                 <jsp:forward page="../order/order.jsp"/>
                 <%
@@ -38,7 +37,7 @@
                 switch ( userType_) {
                     case "client" :
                         if ( clientsList.find(login_) != null ) {
-                            currentUser = clientsList.find(login_);
+                            currentUser.copy( clientsList.find(login_) );
                             %>
                             <jsp:forward page="../order/order.jsp"/>
                             <%

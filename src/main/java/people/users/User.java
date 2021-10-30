@@ -1,4 +1,5 @@
 package people.users;
+
 import people.Person;
 
 import java.util.Objects;
@@ -10,6 +11,18 @@ public class User extends Person {
     public User(){
         this.login = null;
         this.password = null;
+    }
+
+    public User(User other){
+        super( other.getName() );
+        this.login = other.getLogin();
+        this.password = other.getPassword();
+    }
+
+    public void copy(User other){
+        this.setName( other.getName() );
+        this.login = other.getLogin();
+        this.password = other.getPassword();
     }
 
     public User(String login) {

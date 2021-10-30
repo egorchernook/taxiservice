@@ -7,15 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="TITLE" class="java.lang.String" scope="application"/>
 <jsp:useBean id="currentUser" class="people.users.User" scope="session"/>
 
 <html>
 <head>
-    <%
-        TITLE = "Просто Лучшее Такси";
-    %>
-    <title><%=TITLE%></title>
+    <title>Просто Лучшее Такси</title>
 </head>
 
 <body>

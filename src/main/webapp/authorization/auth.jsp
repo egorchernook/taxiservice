@@ -6,11 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="TITLE" class="java.lang.String" scope="application"/>
 
 <html>
 <head>
-    <title><%=TITLE%></title>
+    <title>Просто Лучшее Такси</title>
 </head>
 <body>
     <%
@@ -52,7 +51,7 @@
                      <td>
                          <input type="hidden" name="userType" value=<%=userType_%>>
                          <label>
-                             <input type="text" name="login" placeholder=<%=placeholder_%>; pattern=<%=pattern_%> required/>
+                             <input type="text" name="login" placeholder=<%=placeholder_%> pattern=<%=pattern_%> required/>
                              <span> <%=labelText%> </span>
                          </label>
                      </td>
@@ -78,7 +77,7 @@
                 <a href="auth.jsp?userType=driver"> Я водитель </a>
             </li>
             <li>
-                <a href="auth.jsp?userType=operator"> Я водитель </a>
+                <a href="auth.jsp?userType=operator"> Я оператор </a>
             </li>
         </ul>
     </div>

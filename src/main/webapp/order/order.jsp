@@ -10,13 +10,12 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="TITLE" class="java.lang.String" scope="application"/>
 <jsp:useBean id="currentUser" class="people.users.User" scope="session"/>
 <jsp:useBean id="currentOrder" class="order.Order" scope="session"/>
 
 <html>
 <head>
-    <title><%=TITLE%></title>
+    <title>Просто Лучшее Такси</title>
 </head>
 <body>
     <%
@@ -65,7 +64,7 @@
                     </jsp:include>
                 <%
                 break;
-                //TODO : Доделать принятие заказа ( необходима строка Client temp = (Client) currentUser (downcast), но оно не работает)
+                //TODO : Доделать принятие заказа ( необходима строка Client temp = (Client) currentUser; - downcast, но оно не работает)
         }
 
     %>
@@ -97,7 +96,7 @@
                         <tr>
                             <td>
                                 <label>
-                                    <input type="text" name="0Address" placeholder="Откуда?" value=<%=firstValue%>>
+                                    <input type="text" name="Address" placeholder="Откуда?" value=<%=firstValue%>>
                                 </label>
                             </td>
                         </tr>
@@ -143,11 +142,6 @@
     <div>
         <%
             out.print(currentUser);
-            if ( currentUser instanceof Client ){
-                Client temp = (Client) currentUser;
-                out.print(temp);
-            }
-            //TODO : РАзобраться почему не работает downcast
         %>
     </div>
 </body>
