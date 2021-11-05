@@ -10,6 +10,8 @@ public class Client extends User {
     private Integer rate = 500;
     private OrderCollection orderCollection = new OrderCollection();
 
+    public Client() {}
+
     public Client(String phoneNumber) {
         super(phoneNumber);
         this.phoneNumber = phoneNumber;

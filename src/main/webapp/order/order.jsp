@@ -1,6 +1,8 @@
 <%@ page import="people.users.client.Client" %>
 <%@ page import="address.Address" %>
 <%@ page import="controllers.AddressController" %>
+<%@ page import="static java.lang.Integer.*" %>
+<%@ page import="address.AddressCollection" %>
 
 <%--
   Created by IntelliJ IDEA.
@@ -10,7 +12,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="currentUser" class="people.users.User" scope="session"/>
+<jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
 <jsp:useBean id="currentOrder" class="order.Order" scope="session"/>
 
 <html>
@@ -19,35 +21,51 @@
 </head>
 <body>
     <%
-        Integer i = 0;
+        int i = 0;
         AddressController addressController = new AddressController();
 
-        while ( currentOrder.getAddressCollection().getCollectionIterator().hasNext() ){
-            String address = request.getParameter( i + "Address" );
-            if( address != null ){
-                addressController.add( new Address ( address) );
+        if( currentOrder.getAddressCollection().isEmpty() ){
+            while( i < 2) {
+                addressController.add( new Address(""));
+                ++i;
             }
-            currentOrder.getAddressCollection().getCollectionIterator().next();
-        };
+        } else {
+            while ( currentOrder.getAddressCollection().getCollectionIterator().hasNext()) {
+                String address = request.getParameter(i + "Address");
+                if (address != null) {
+                    addressController.add(new Address(address));
+                } else {
+                    addressController.add(new Address(""));
+                }
+                currentOrder.getAddressCollection().getCollectionIterator().next();
+                ++i;
+            }
+        }
         currentOrder.setAddressCollection( addressController.getAddressCollection() );
 
         String action_ = request.getParameter("action");
         switch( action_ ){
             case "addDestination":
-                currentOrder.getAddressCollection().add( new Address() );
+                addressController.setAddressCollection( currentOrder.getAddressCollection());
+                addressController.add( new Address("") );
                 break;
             case "deleteDestination":
-                currentOrder.getAddressCollection().delete_back();
+                addressController.setAddressCollection( currentOrder.getAddressCollection());
+                addressController.getAddressCollection().delete_back();
                 break;
             case "check":
                 while ( currentOrder.getAddressCollection().getCollectionIterator().hasNext() ) {
                     if ( currentOrder.getAddressCollection().getCollectionIterator().next() == null ||
                          currentOrder.getAddressCollection().getCollectionIterator().next().toString().equals("") ) {
+                        /*
                         String errorMessage = "Заполните все поля";
+                        */
                         %>
+                        <%--
                         <jsp:include page="../utility/errorFrame.jsp">
                             <jsp:param name="message" value="<%=errorMessage%>"/>
                         </jsp:include>
+                        --%>
                         <%
                     } else {
                         %>
@@ -57,23 +75,26 @@
                 }
                 break;
             case "acceptOrder":
+                /*
                 String errorMessage = "Заказ сделан";
+                */
                 %>
+                <%--
                     <jsp:include page="../utility/errorFrame.jsp">
                         <jsp:param name="message" value="<%=errorMessage%>"/>
                     </jsp:include>
+                --%>
                 <%
                 break;
-                //TODO : Доделать принятие заказа ( необходима строка Client temp = (Client) currentUser; - downcast, но оно не работает)
         }
-
+        currentOrder.setAddressCollection( addressController.getAddressCollection() );
     %>
     <div class="order-content">
 
         <form action="../order/order.jsp" method="post">
             <table>
                 <%
-                    if( currentOrder.getAddressCollection().isEmpty() ) {
+                    if( currentOrder.getAddressCollection().size() == 2 ) {
                         %>
                         <tr>
                             <td>
@@ -91,30 +112,56 @@
                         </tr>
                         <%
                     } else {
-                        String firstValue = currentOrder.getAddressCollection().getCollectionIterator().next().toString();
-                        %>
-                        <tr>
-                            <td>
-                                <label>
-                                    <input type="text" name="Address" placeholder="Откуда?" value=<%=firstValue%>>
-                                </label>
-                            </td>
-                        </tr>
-                        <%
-                        i = 0;
-                        while ( currentOrder.getAddressCollection().getCollectionIterator().hasNext() ) {
-                            String value_ = currentOrder.getAddressCollection().getCollectionIterator().next().toString();
-                            ++i;
-                            String name_ = i + "Address";
+                        String firstValue = currentOrder.getAddressCollection().getCollectionIterator().next().getName();
+                        if( !firstValue.equals("") ){
                             %>
                             <tr>
                                 <td>
                                     <label>
-                                        <input type="text" name=<%=name_%>; placeholder="Куда?" value=<%=value_%>>
+                                        <input type="text" name="Address" placeholder="Откуда?" value=<%=firstValue%>>
                                     </label>
                                 </td>
                             </tr>
                             <%
+                        } else {
+                            %>
+                            <tr>
+                                <td>
+                                    <label>
+                                        <input type="text" name="Address" placeholder="Откуда?">
+                                    </label>
+                                </td>
+                            </tr>
+                            <%
+                        }
+                        i = 0;
+                        addressController.setAddressCollection( currentOrder.getAddressCollection());
+                        while ( addressController.getIterator().hasNext() ) {
+                            String value_ = addressController.getIterator().next().getName();
+                            ++i;
+                            String name_ = i + "Address";
+                            if( !value_.equals("")){
+                                %>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input type="text" name=<%=name_%>; placeholder="Куда?" value=<%=value_%>>
+                                        </label>
+                                    </td>
+                                </tr>
+                                <%
+                            } else {
+                                %>
+                                <tr>
+                                    <td>
+                                        <label>
+                                            <input type="text" name=<%=name_%>; placeholder="Куда?">
+                                        </label>
+                                    </td>
+                                </tr>
+                                <%
+                            }
+
                         }
                     }
                 %>
@@ -131,7 +178,7 @@
                 <tr>
                     <td>
                         <input type="hidden" name="action" value="check">
-                        <input type="submit" name="Сделать заказ">
+                        <input type="submit" value="Сделать заказ">
                     </td>
                 </tr>
             </table>
@@ -140,9 +187,9 @@
     </div>
 
     <div>
-        <%
-            out.print(currentUser);
-        %>
+        <form action="../account/account.jsp" method="post">
+            <input type="submit" value="Профиль">
+        </form>
     </div>
 </body>
 </html>

@@ -9,7 +9,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="clientsList" class="controllers.ClientController" scope="application"/>
-<jsp:useBean id="currentUser" class="people.users.User" scope="session"/>
+<jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
 
 <html>
 <head>
@@ -24,7 +24,7 @@
         switch( action_ ) {
             case "fast":
                 String phoneNumber_ = request.getParameter("phoneNumber");
-                currentUser.copy( new Client( phoneNumber_ ) );
+                currentClient.copy( new Client( phoneNumber_ ) );
                 %>
                 <jsp:forward page="../order/order.jsp"/>
                 <%
@@ -37,10 +37,12 @@
                 switch ( userType_) {
                     case "client" :
                         if ( clientsList.find(login_) != null ) {
-                            currentUser.copy( clientsList.find(login_) );
-                            %>
-                            <jsp:forward page="../order/order.jsp"/>
-                            <%
+                            if( password_.equals( clientsList.find(login_).getPassword() ) ) {
+                                currentClient.copy( clientsList.find(login_) );
+                                %>
+                                <jsp:forward page="../order/order.jsp"/>
+                                <%
+                            }
                         } else {
                             %>
                             <jsp:forward page="auth.jsp?error=Такого пользователя нет"/>
@@ -54,9 +56,6 @@
                         //TODO : Сделать авторизацию и перенаправление зашедшего оператора
                         break;
                 }
-
-                //TODO : Сделать проверку логина и пароля
-
                 break;
         }
     %>

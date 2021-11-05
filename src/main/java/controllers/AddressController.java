@@ -2,6 +2,7 @@ package controllers;
 
 import address.*;
 
+import java.util.Iterator;
 import java.util.Set;
 
 public class AddressController {
@@ -29,6 +30,8 @@ public class AddressController {
     public boolean isEmpty(){
         return addressCollection.isEmpty();
     }
+
+    public Iterator<Address> getIterator(){return addressCollection.getCollectionIterator();}
 
     public AddressCollection getAddressCollection() {
         return addressCollection;

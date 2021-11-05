@@ -13,13 +13,16 @@
 </head>
 <body>
     <%
+        /*
         String errorMessage = request.getParameter("error");
+        */
         %>
+        <%--
         <jsp:include page="../utility/errorFrame.jsp">
             <jsp:param name="message" value="<%=errorMessage%>"/>
         </jsp:include>
+        --%>
         <%
-
         String userType_ = request.getParameter("userType");
         String placeholder_ = "";
         String pattern_ = "";
@@ -70,16 +73,6 @@
                  </tr>
              </table>
         </form>
-    </div>
-    <div class="footer">
-        <ul>
-            <li>
-                <a href="auth.jsp?userType=driver"> Я водитель </a>
-            </li>
-            <li>
-                <a href="auth.jsp?userType=operator"> Я оператор </a>
-            </li>
-        </ul>
     </div>
 </body>
 </html>
