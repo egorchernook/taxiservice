@@ -10,6 +10,8 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="beauties/css/style_main.css">
     <title>Просто Лучшее Такси</title>
 </head>
 

@@ -22,6 +22,13 @@ public class Client extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public void copy(Client other){
+        this.copy( (User) other );
+        this.phoneNumber = other.getPhoneNumber();
+        this.rate = other.getRate();
+        this.orderCollection = other.getOrderCollection();
+    }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -36,6 +43,14 @@ public class Client extends User {
 
     public void setRate(Integer rate) {
         this.rate = rate;
+    }
+
+    public OrderCollection getOrderCollection() {
+        return orderCollection;
+    }
+
+    public void setOrderCollection(OrderCollection orderCollection) {
+        this.orderCollection = orderCollection;
     }
 
     @Override

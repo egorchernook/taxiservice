@@ -9,7 +9,11 @@
 
 <html>
 <head>
-    <title>Просто Лучшее Такси</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аутентификация</title>
+    <link rel="stylesheet" href="../beauties/css/style_auth.css">
+    <link rel="icon" href="../beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
 </head>
 <body>
     <%
@@ -46,32 +50,29 @@
         }
         // it seems like switch statement only works normally ( with equals() ) with java 7 or bigger
     %>
-    <div class="loginField">
-        <form action="userAuth.jsp" method="post">
+    <div class="card">
+        <form autocomplete="on" action="userAuth.jsp" method="post">
             <input type="hidden" name="action" value="default">
-             <table>
-                 <tr>
-                     <td>
-                         <input type="hidden" name="userType" value=<%=userType_%>>
-                         <label>
-                             <input type="text" name="login" placeholder=<%=placeholder_%> pattern=<%=pattern_%> required/>
-                             <span> <%=labelText%> </span>
-                         </label>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>
-                         <label>
-                             <input type="password" name="password" placeholder="Пароль" required>
-                         </label>
-                     </td>
-                 </tr>
-                 <tr>
-                     <td>
-                        <input type="submit" value="Войти"/>
-                     </td>
-                 </tr>
-             </table>
+            <div class="card-title">
+                <img src="../beauties/icons/Timmy_logo_color.png" alt="Logo">
+            </div>
+            <input type="hidden" name="userType" value=<%=userType_%>>
+            <label>
+                <span>Номер телефона</span>
+                <input type="text" name="login" placeholder=<%=placeholder_%> pattern=<%=pattern_%> required/>
+                <span> <%=labelText%> </span>
+            </label>
+
+            <label>
+                <span>Пароль</span>
+                <input type="password" name="password" placeholder=".........." required>
+            </label>
+
+            <button class="submit-button" type="submit">Войти</button>
+        </form>
+
+        <form action="../beauties/img/oks.jpg" method="get">
+            <button>Зарегистрироваться</button>
         </form>
     </div>
 </body>
