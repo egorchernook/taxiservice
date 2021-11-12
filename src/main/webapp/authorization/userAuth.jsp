@@ -13,6 +13,8 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../beauties/css/style_main.css">
     <title>Просто Лучшее Такси</title>
 </head>
 <body>
@@ -34,27 +36,29 @@
                 Integer password_ = request.getParameter("password").hashCode();
 
                 String userType_ = request.getParameter("userType");
-                switch ( userType_) {
-                    case "client" :
-                        if ( clientsList.find(login_) != null ) {
-                            if( password_.equals( clientsList.find(login_).getPassword() ) ) {
-                                currentClient.copy( clientsList.find(login_) );
+                if( userType_ != null ){
+                    switch ( userType_) {
+                        case "client" :
+                            if ( clientsList.find(login_) != null ) {
+                                if( password_.equals( clientsList.find(login_).getPassword() ) ) {
+                                    currentClient.copy( clientsList.find(login_) );
+                                    %>
+                                    <jsp:forward page="../order/order.jsp"/>
+                                    <%
+                                }
+                            } else {
                                 %>
-                                <jsp:forward page="../order/order.jsp"/>
+                                <jsp:forward page="../index.jsp?error=Такого пользователя нет"/>
                                 <%
                             }
-                        } else {
-                            %>
-                            <jsp:forward page="auth.jsp?error=Такого пользователя нет"/>
-                            <%
-                        }
-                        break;
-                    case "driver" :
-                        //TODO : Сделать авторизацию и перенаправление зашедшего водителя
-                        break;
-                    case "operator" :
-                        //TODO : Сделать авторизацию и перенаправление зашедшего оператора
-                        break;
+                            break;
+                        case "driver" :
+                            //TODO : Сделать авторизацию и перенаправление зашедшего водителя
+                            break;
+                        case "operator" :
+                            //TODO : Сделать авторизацию и перенаправление зашедшего оператора
+                            break;
+                    }
                 }
                 break;
         }

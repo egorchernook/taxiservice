@@ -1,49 +1,88 @@
-
 <%--
   Created by IntelliJ IDEA.
-  User: chernookegor
-  Date: 02.10.2021
-  Time: 14:52
+  User: egor
+  Date: 23.10.2021
+  Time: 11:04
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
 
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="beauties/css/style_main.css">
-    <title>Просто Лучшее Такси</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аутентификация</title>
+    <link rel="stylesheet" href="beauties/css/style_auth.css">
+    <link rel="icon" href="beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
 </head>
-
 <body>
+    <%
+        /*
+        String errorMessage = request.getParameter("error");
+        */
+        %>
+        <%--
+        <jsp:include page="../utility/errorFrame.jsp">
+            <jsp:param name="message" value="<%=errorMessage%>"/>
+        </jsp:include>
+        --%>
+        <%
+        String userType_ = request.getParameter("userType");
+        String placeholder_ = "";
+        String pattern_ = "";
+        String labelText = "";
 
-    <div class="entrance">
+        if( userType_ == null){
+            placeholder_ = "Номер телефона";
+            pattern_ = "[0-9]{10}";
+            labelText = "Например: 950 123 12 12";
+        } else {
 
-        <form action="authorization/userAuth.jsp" method="post">
-            <table>
-                <tr>
-                    <td>
-                        <input type="hidden" name="action" value="fast">
-                        <label>
-                            <input type="text" name="phoneNumber" placeholder="(XXX)-XXX-XXXX" pattern="[0-9]{10}" required>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" value="Войти"/>
-                    </td>
-                </tr>
-            </table>
+            switch (userType_) {
+                case "client":
+                    placeholder_ = "Номер телефона";
+                    pattern_ = "[0-9]{10}";
+                    labelText = "Например: 950 123 12 12";
+                    break;
+                case "driver":
+                    placeholder_ = "Логин";
+                    pattern_ = "[A-Za-z0-9]{3,20}";
+                    labelText = "Ваш логин при регистрации";
+                    break;
+                case "operator":
+                    placeholder_ = "Табельный номер";
+                    pattern_ = "[0-9]{6}";
+                    labelText = "Ваш табельный номер";
+                    break;
+            }
+            // it seems like switch statement only works normally ( with equals() ) with java 7 or bigger
+        }
+    %>
+    <div class="card">
+        <form autocomplete="on" action="authorization/userAuth.jsp" method="post">
+            <input type="hidden" name="action" value="default">
+            <div class="card-title">
+                <img src="beauties/icons/Timmy_logo_color.png" alt="Logo">
+            </div>
+            <input type="hidden" name="userType" value=<%=userType_%>>
+            <label>
+                <span>Номер телефона</span>
+                <input type="text" name="login" placeholder=<%=placeholder_%> pattern=<%=pattern_%> required/>
+                <span> <%=labelText%> </span>
+            </label>
+
+            <label>
+                <span>Пароль</span>
+                <input type="password" name="password" placeholder=".........." required>
+            </label>
+
+            <button class="submit-button" type="submit">Войти</button>
         </form>
-        <p>----------------ИЛИ---------------</p>
-        <form action="authorization/auth.jsp" method="post">
-            <input type="hidden" name="userType" value="client">
-            <input type="submit" value="Авторизоваться"/>
-        </form>
 
+        <form action="beauties/img/oks.jpg" method="get">
+            <button>Зарегистрироваться</button>
+        </form>
     </div>
-
 </body>
-
 </html>

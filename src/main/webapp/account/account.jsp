@@ -11,44 +11,72 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../beauties/css/style_main.css">
     <title>Просто Лучшее Такси</title>
 </head>
 <body>
-    <div class="lk">
-        <table>
-            <tr>
-                <td>
-                    <p>Имя :</p>
-                </td>
-                <td>
-                    <p><%=currentClient.getName()%></p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Логин :</p>
-                </td>
-                <td>
-                    <p><%=currentClient.getLogin()%></p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Номер телефона :</p>
-                </td>
-                <td>
-                    <p><%=currentClient.getPhoneNumber()%></p>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p>Рейтинг :</p>
-                </td>
-                <td>
-                    <p><%=currentClient.getRate()%></p>
-                </td>
-            </tr>
-        </table>
+    <%
+        String name_ = request.getParameter( "clientName");
+        String login_ = request.getParameter( "clientLogin");
+
+        if( name_ != null && !name_.equals( currentClient.getName())){
+            currentClient.setName( name_ );
+        }
+        if( login_ != null && !login_.equals( currentClient.getLogin())){
+            currentClient.setLogin( login_ );
+        }
+    %>
+    <div>
+        <form action="account.jsp" method="post">
+            <table>
+                <tr>
+                    <td>
+                        <p>Имя :</p>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="text" name="clientName" value=<%=currentClient.getName()%>>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Логин :</p>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="text" name="clientLogin" value=<%=currentClient.getLogin()%>>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Номер телефона :</p>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="text" name="clientPhone" value=<%=currentClient.getPhoneNumber()%>; readonly>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Рейтинг :</p>
+                    </td>
+                    <td>
+                        <label>
+                            <input type="text" name="clientRate" value=<%=currentClient.getRate()%>; readonly>
+                        </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="Сохранить изменения">
+                    </td>
+                </tr>
+            </table>
+        </form>
     </div>
 </body>
 </html>

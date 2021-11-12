@@ -17,6 +17,8 @@
 
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../beauties/css/style_main.css">
     <title>Просто Лучшее Такси</title>
 </head>
 <body>
@@ -86,10 +88,12 @@
                 --%>
                 <%
                 break;
+            default:
+                break;
         }
         currentOrder.setAddressCollection( addressController.getAddressCollection() );
     %>
-    <div class="order-content">
+    <div>
 
         <form action="../order/order.jsp" method="post">
             <table>
@@ -167,17 +171,17 @@
                 %>
                 <tr>
                     <td>
-                        <input type="hidden" name="action" value="addDestination">
+                        <input type="hidden" name="action" value=""> <%--addDestination --%>
                         <input type="submit" value="Добавить остановку">
                     </td>
                     <td>
-                        <input type="hidden" name="action" value="deleteDestination">
+                        <input type="hidden" name="action" value=""> <%--deleteDestination --%>
                         <input type="submit" value="Удалить остановку">
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="hidden" name="action" value="check">
+                        <input type="hidden" name="action" value=""> <%--check --%>
                         <input type="submit" value="Сделать заказ">
                     </td>
                 </tr>
