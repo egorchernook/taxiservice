@@ -20,47 +20,37 @@
 <body>
 
     <%
-        String action_ = request.getParameter("action");
+        String login_ = request.getParameter("login");
+        Integer password_ = request.getParameter("password").hashCode();
 
-        // it seems like switch statement only works normally ( with equals() ) with java 7 or bigger
-        switch( action_ ) {
-            case "fast":
-                String phoneNumber_ = request.getParameter("phoneNumber");
-                currentClient.copy( new Client( phoneNumber_ ) );
-                %>
-                <jsp:forward page="../index.jsp"/>
-                <%
-                break;
-            case "default":
-                String login_ = request.getParameter("login");
-                Integer password_ = request.getParameter("password").hashCode();
-
-                String userType_ = request.getParameter("userType");
-                if( userType_ != null ){
-                    switch ( userType_) {
-                        case "client" :
-                            if ( clientsList.find(login_) != null ) {
-                                if( password_.equals( clientsList.find(login_).getPassword() ) ) {
-                                    currentClient.copy( clientsList.find(login_) );
-                                    %>
-                                    <jsp:forward page="../index.jsp"/>
-                                    <%
-                                }
-                            } else {
-                                %>
-                                <jsp:forward page="../beauties/img/oks.jpg"/>
-                                <%
-                            }
-                            break;
-                        case "driver" :
-                            //TODO : Сделать авторизацию и перенаправление зашедшего водителя
-                            break;
-                        case "operator" :
-                            //TODO : Сделать авторизацию и перенаправление зашедшего оператора
-                            break;
+        String userType_ = request.getParameter("userType");
+        if( userType_ != null ){
+            switch ( userType_) {
+                case "client" :
+                    if ( clientsList.find(login_) != null ) {
+                        if(password_.equals(clientsList.find(login_).getPassword())) {
+                            currentClient.copy( clientsList.find(login_) );
+                            %>
+                                <jsp:forward page="../index.jsp"/>
+                            <%
+                        }
+                    } else {
+                        %>
+                            <jsp:forward page="../beauties/img/oks.jpg"/>
+                        <%
                     }
-                }
-                break;
+                    break;
+                case "driver" :
+                    //TODO : Сделать авторизацию и перенаправление зашедшего водителя
+                    break;
+                case "operator" :
+                    //TODO : Сделать авторизацию и перенаправление зашедшего оператора
+                    break;
+            }
+        } else {
+            %>
+                <jsp:forward page="../index.jsp"/>
+            <%
         }
     %>
 
