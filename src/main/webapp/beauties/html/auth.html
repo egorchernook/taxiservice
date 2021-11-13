@@ -1,31 +1,33 @@
 <!DOCTYPE html>
 <html lang="ru">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Аутентификация</title>
-        <link rel="stylesheet" href="../css/style_auth.css">
-        <link rel="icon" href="../icons/Timmy_logo_color.png" type="image/x-icon"/>
-    </head>
-    <body>
-        <div class="card">
-            <form autocomplete="on" action="" method="post" target="_blank">
-                <div class="card-title">
-                    <img src="../icons/Timmy_logo_color.png" alt="Logo">
-                </div>
-                <label>
-                    <span>Номер телефона</span>
-                    <input type="tel" name="phone_number" placeholder="88005553535" required>
-                </label>
-                <label>
-                    <span>Пароль</span>
-                    <input type="password" name="password" placeholder= ".........." required>
-                </label>
-                <button class="submit-button" type="submit">Войти</button>
-            </form>
-            <form action="../img/oks.jpg" method="get">
-                <button>Зарегистрироваться</button>
-            </form>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Аутентификация</title>
+    <link rel="stylesheet" href="../css/style_auth.css">
+    <link rel="icon" href="../icons/Timmy_logo_color.png" type="image/x-icon"/>
+</head>
+<body>
+    <div class="card">
+        <div class="card-title">
+            <a href="index.html" target="_blank">
+                <img src="../icons/Timmy_logo_color.png" alt="Logo">
+            </a>
         </div>
-    </body>
+        <form action="" method="post">
+            <label>
+                <span>Номер телефона</span>
+                <input type="tel" name="phone_number" placeholder="88005553535" required>
+            </label>
+            <label>
+                <span>Пароль</span>
+                <input type="password" name="password" placeholder= ".........." required>
+            </label>
+            <button class="submit-button" type="submit">Войти</button>
+        </form>
+        <form action="../img/oks.jpg" method="get">
+            <button>Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
 </html>

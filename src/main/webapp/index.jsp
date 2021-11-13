@@ -1,88 +1,81 @@
 <%--
   Created by IntelliJ IDEA.
   User: egor
-  Date: 23.10.2021
-  Time: 11:04
+  Date: 13.11.2021
+  Time: 11:01
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
-
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Аутентификация</title>
-    <link rel="stylesheet" href="beauties/css/style_auth.css">
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="beauties/css/style.css">
     <link rel="icon" href="beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
+    <title> Timmy</title>
 </head>
 <body>
-    <%
-        /*
-        String errorMessage = request.getParameter("error");
-        */
-        %>
-        <%--
-        <jsp:include page="../utility/errorFrame.jsp">
-            <jsp:param name="message" value="<%=errorMessage%>"/>
-        </jsp:include>
-        --%>
-        <%
-        String userType_ = request.getParameter("userType");
-        String placeholder_ = "";
-        String pattern_ = "";
-        String labelText = "";
-
-        if( userType_ == null){
-            placeholder_ = "Номер телефона";
-            pattern_ = "[0-9]{10}";
-            labelText = "Например: 950 123 12 12";
-        } else {
-
-            switch (userType_) {
-                case "client":
-                    placeholder_ = "Номер телефона";
-                    pattern_ = "[0-9]{10}";
-                    labelText = "Например: 950 123 12 12";
-                    break;
-                case "driver":
-                    placeholder_ = "Логин";
-                    pattern_ = "[A-Za-z0-9]{3,20}";
-                    labelText = "Ваш логин при регистрации";
-                    break;
-                case "operator":
-                    placeholder_ = "Табельный номер";
-                    pattern_ = "[0-9]{6}";
-                    labelText = "Ваш табельный номер";
-                    break;
-            }
-            // it seems like switch statement only works normally ( with equals() ) with java 7 or bigger
-        }
-    %>
-    <div class="card">
-        <form autocomplete="on" action="authorization/userAuth.jsp" method="post">
-            <input type="hidden" name="action" value="default">
-            <div class="card-title">
-                <img src="beauties/icons/Timmy_logo_color.png" alt="Logo">
-            </div>
-            <input type="hidden" name="userType" value=<%=userType_%>>
-            <label>
-                <span>Номер телефона</span>
-                <input type="text" name="login" placeholder=<%=placeholder_%> pattern=<%=pattern_%> required/>
-                <span> <%=labelText%> </span>
-            </label>
-
-            <label>
-                <span>Пароль</span>
-                <input type="password" name="password" placeholder=".........." required>
-            </label>
-
-            <button class="submit-button" type="submit">Войти</button>
-        </form>
-
-        <form action="beauties/img/oks.jpg" method="get">
-            <button>Зарегистрироваться</button>
-        </form>
+<header class="header">
+    <div class="header_inner">
+        <div class="logo"><a href="authorization/auth.jsp"></a></div>
+        <nav class="nav">
+            <a class="nav_link" href="beauties/img/oks.jpg"> Пользователям </a>
+            <a class="nav_link" href="beauties/img/oks.jpg"> Водителям </a>
+        </nav>
+        <nav class="nav">
+            <a class="nav_link" href="authorization/auth.jsp"> <img src="beauties/icons/Login%20Icon.png" alt="logo"> Войти </a>
+            <a class="reg" href="registration/clientRegistration.jsp"> Зарегестрироваться </a>
+        </nav>
     </div>
+</header>
+
+<hr class="line_h_1" />
+<div class="container">
+    <div class="body__inner">
+        <div class="block_buttons">
+            <form id="route" action="" method="post">
+                <div class="grey__button"> <i class="circle"></i>
+                    <label>
+                        <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
+                    </label>
+                </div>
+                <div class="grey__button"> <i class="circle"></i>
+                    <label>
+                        <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" >
+                    </label>
+                </div>
+                <div class="grey__button"> <i class="circle"></i>
+                    <label>
+                        <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" >
+                    </label>
+                </div>
+                <div class="grey__button"> <i class="circle"></i>
+                    <label>
+                        <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
+                    </label>
+                </div>
+            </form>
+
+            <div class="block_buttons">
+                <button class="plus-button"> <i class="plus"></i> Добавить остановку </button>
+                <button class="plus-button"> <i class="cross"></i> Убрать остановку </button>
+            </div>
+            <button class="submit-button" type="submit" form="route"> Заказать сейчас </button>
+            <form id="pending order" action="" method="get"> <button> Запланировать заранее</button> </form>
+        </div>
+        <div class="map"> </div>
+    </div>
+</div>
+
+<hr class="line_h_2" />
+<footer class="footer">
+    <div class="footer__inner">
+        <div class="nav_2"> © 2021 ООО «Timmy» </div>
+        <nav class="nav_3">
+            <a class="nav_link" href="beauties/img/oks.jpg"> Пользовательское соглашение </a>
+            <a class="nav_link" href="beauties/img/oks.jpg"> Согласие на обработку данных </a>
+        </nav>
+    </div>
+
+</footer>
 </body>
 </html>

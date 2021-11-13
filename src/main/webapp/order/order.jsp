@@ -23,6 +23,8 @@
 </head>
 <body>
     <%
+
+        //TODO : переместить код в index.jsp
         int i = 0;
         AddressController addressController = new AddressController();
 

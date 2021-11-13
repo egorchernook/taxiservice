@@ -1,4 +1,4 @@
-body{
+.body{
     margin: 0;
     background-color:
             #e5e5e5;
@@ -34,6 +34,8 @@ body{
 .card label{
     display: inline-block;
     margin-top: 20px;
+    margin-right: 58px;
+    margin-left: 58px;
 }
 
 .card span{
@@ -65,16 +67,15 @@ body{
 @media screen and (-webkit-min-device-pixel-ratio:0) {
     .card input[type="password"]{
         font-family: Segoe UI, sans-serif;
-        font-size: 28px;
+        letter-spacing: -.75px;
     }
 }
 
 .card input[type="password"]::placeholder{
     font-family: Segoe UI, sans-serif;
     font-size: 76px;
-    letter-spacing: -0.05em;
+    letter-spacing: -0.1em;
 }
-
 
 .card input:focus{
     outline: none;
@@ -88,7 +89,7 @@ button{
     height: 56px;
     border: none;
     border-radius: 40px;
-    background: #E8E8E8;
+    background: #F3F3F3;
     font-family: Segoe UI;
     font-style: normal;
     font-weight: normal;
@@ -104,14 +105,15 @@ button:hover{
     font-size: 20px;
     font-weight: 3000;
 }
+
 .submit-button{
     display: block;
-    margin-top: 54px;
+    margin-top: 40px;
     border: 2px solid  #ED6E9F;
     background-color: snow;
     color: black;
     transition: color 0.4s, background-color 1s,
-                font-size 0.5s, font-weight 0.5s;
+    font-size 0.5s, font-weight 0.5s;
 }
 
 .submit-button:hover{
@@ -119,4 +121,19 @@ button:hover{
     color: #F5F5F5;
     font-size: 22px;
     font-weight: 3000;
+}
+/*Удаление желтого фона при атозаполнении полей.
+Используем анимацию, поскольку поле нестандартное*/
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-animation: autofill 0s forwards;
+}
+
+@-webkit-keyframes autofill {
+    100% {
+        background: transparent;
+        color: inherit;
+    }
 }

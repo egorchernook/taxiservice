@@ -28,7 +28,7 @@
                 String phoneNumber_ = request.getParameter("phoneNumber");
                 currentClient.copy( new Client( phoneNumber_ ) );
                 %>
-                <jsp:forward page="../order/order.jsp"/>
+                <jsp:forward page="../index.jsp"/>
                 <%
                 break;
             case "default":
@@ -43,12 +43,12 @@
                                 if( password_.equals( clientsList.find(login_).getPassword() ) ) {
                                     currentClient.copy( clientsList.find(login_) );
                                     %>
-                                    <jsp:forward page="../order/order.jsp"/>
+                                    <jsp:forward page="../index.jsp"/>
                                     <%
                                 }
                             } else {
                                 %>
-                                <jsp:forward page="../index.jsp?error=Такого пользователя нет"/>
+                                <jsp:forward page="auth.jsp?error=Такого пользователя нет"/>
                                 <%
                             }
                             break;
