@@ -16,14 +16,19 @@
 <body>
 <header class="header">
     <div class="header_inner">
-        <div class="logo"><a href="authorization/auth.jsp"></a></div>
+        <div class="logo"><a href="beauties/html/clientAuth.html"></a></div>
         <nav class="nav">
             <a class="nav_link" href="beauties/img/oks.jpg"> Пользователям </a>
             <a class="nav_link" href="beauties/img/oks.jpg"> Водителям </a>
         </nav>
         <nav class="nav">
-            <a class="nav_link" href="authorization/auth.jsp"> <img src="beauties/icons/Login%20Icon.png" alt="logo"> Войти </a>
-            <a class="reg" href="registration/clientRegistration.jsp"> Зарегестрироваться </a>
+            <a class="nav_link" href="beauties/html/clientAuth.html">
+                <img src="beauties/icons/Login%20Icon.png" alt="logo">
+                Войти
+            </a>
+            <a class="reg" href="beauties/html/reg.html">
+                Зарегестрироваться
+            </a>
         </nav>
     </div>
 </header>
@@ -67,6 +72,7 @@
 </div>
 
 <hr class="line_h_2" />
+
 <footer class="footer">
     <div class="footer__inner">
         <div class="nav_2"> © 2021 ООО «Timmy» </div>

@@ -72,9 +72,9 @@ public class ClientCollection
     }
 
     private void test(){
-        this.add( new Client( "Егор", "8888888888", "1".hashCode() ) );
-        this.add( new Client( "Гоша", "7777777777", "1".hashCode() ) );
-        this.add( new Client( "Мадина", "6666666666", "1".hashCode() ) );
-        this.add( new Client( "Клава", "5555555555", "1".hashCode() ) );
+        this.add( new Client( "Егор", "+78888888888", "1".hashCode() ) );
+        this.add( new Client( "Гоша", "+77777777777", "1".hashCode() ) );
+        this.add( new Client( "Мадина", "+76666666666", "1".hashCode() ) );
+        this.add( new Client( "Клава", "+75555555555", "1".hashCode() ) );
     }
 }

@@ -15,12 +15,6 @@
     <link rel="icon" href="../beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
 </head>
 <body>
-    <div class="card">
-        <div class="card-title">
-            <a href="../index.jsp" target="_blank">
-                <img src="../beauties/icons/Timmy_logo_color.png" alt="Logo">
-            </a>
-        </div>
-    </div>
+
 </body>
 </html>

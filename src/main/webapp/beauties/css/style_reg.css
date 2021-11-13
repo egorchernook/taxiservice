@@ -8,7 +8,7 @@
 .card{
     position: absolute;
     width: 413px;
-    height: 531px;
+    height: 619px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -22,14 +22,35 @@
 }
 
 .card-title{
-    margin-top: 31px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 79px;
 }
 
 .card-title img{
-    display: block;
-    margin: 0 auto;
-    width: 129px;
-    height: 58px;
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 31px;
+    width: 81px;
+    height: 36px;
+}
+
+.card-title-name{
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 31px;
+    width: 160px;
+    height: 36px;
+
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 28px;
+    line-height: 37px;
+    text-align: center;
+
+    color: #000000;
 }
 
 .card label{
@@ -122,6 +143,25 @@ button:hover{
     color: #F5F5F5;
     font-size: 22px;
     font-weight: 3000;
+}
+
+.agreement{
+    display: block;
+    margin-top: 20px;
+    margin-inline: auto;
+    width: 299px;
+    height: 76px;
+
+    font-family: Segoe UI;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 12px;
+    line-height: 16px;
+    color: #8B8B8B;
+}
+a{
+    color: #EC8B6B;
+    text-decoration: none;
 }
 /*Удаление желтого фона при атозаполнении полей.
 Используем анимацию, поскольку поле нестандартное*/

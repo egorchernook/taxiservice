@@ -48,7 +48,7 @@
                                 }
                             } else {
                                 %>
-                                <jsp:forward page="auth.jsp?error=Такого пользователя нет"/>
+                                <jsp:forward page="../beauties/img/oks.jpg"/>
                                 <%
                             }
                             break;
