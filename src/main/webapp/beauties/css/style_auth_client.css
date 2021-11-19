@@ -7,7 +7,7 @@
 .card{
     position: absolute;
     width: 413px;
-    height: 619px;
+    height: 531px;
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
@@ -25,14 +25,6 @@
     justify-content: space-between;
     align-items: center;
     padding: 0px 79px;
-}
-
-.card-title img{
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 31px;
-    width: 81px;
-    height: 36px;
 }
 
 .card-title-logo{
@@ -153,26 +145,6 @@ button:hover{
     font-size: 22px;
     font-weight: 3000;
 }
-
-.agreement{
-    display: block;
-    margin-top: 20px;
-    margin-inline: auto;
-    width: 299px;
-    height: 76px;
-
-    font-family: Segoe UI;
-    font-style: normal;
-    font-weight: 300;
-    font-size: 12px;
-    line-height: 16px;
-    color: #8B8B8B;
-}
-a{
-    color: #EC8B6B;
-    text-decoration: none;
-}
-
 /*Удаление желтого фона при атозаполнении полей.
 Используем анимацию, поскольку поле нестандартное*/
 input:-webkit-autofill,

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="17" height="17" viewBox="0 0 17 17">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: none;
+        stroke: #000;
+        stroke-width: 1px;
+        fill-rule: evenodd;
+      }
+    </style>
+  </defs>
+  <path id="Icon" class="cls-1" d="M186,239.312a8,8,0,1,1-8,8A8,8,0,0,1,186,239.312Zm0,0a8,8,0,1,1-8,8A8,8,0,0,1,186,239.312Z" transform="translate(-177.5 -238.812)"/>
+</svg>
