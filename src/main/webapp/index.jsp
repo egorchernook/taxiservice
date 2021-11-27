@@ -16,13 +16,13 @@
 <body>
     <header class="header">
         <div class="header_inner">
-            <div class="logo"><a href="beauties/html/clientAuth.html"></a></div>
+            <div class="logo"><a href="beauties/html/auth_client.html"></a></div>
             <nav class="nav">
                 <a class="nav_link" href="beauties/img/oks.jpg"> Пользователям </a>
                 <a class="nav_link" href="beauties/img/oks.jpg"> Водителям </a>
             </nav>
             <nav class="nav">
-                <a class="nav_link" href="beauties/html/clientAuth.html">
+                <a class="nav_link" href="beauties/html/auth_client.html">
                     <img src="beauties/icons/Login%20Icon.png" alt="logo">
                     Войти
                 </a>

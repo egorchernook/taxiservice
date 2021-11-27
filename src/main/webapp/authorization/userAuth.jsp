@@ -13,14 +13,15 @@
 
 <html>
 <head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet" href="../beauties/css/style_main.css">
-    <title>Просто Лучшее Такси</title>
+    <meta charset = "UTF-8">
+    <link rel="stylesheet" href="../beauties/css/style.css">
+    <link rel="icon" href="../beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
+    <title> Timmy</title>
 </head>
 <body>
 
     <%
-        String login_ = request.getParameter("login");
+        String login_ = request.getParameter("phone_number");
         Integer password_ = request.getParameter("password").hashCode();
 
         String userType_ = request.getParameter("userType");
