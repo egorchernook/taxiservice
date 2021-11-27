@@ -11,8 +11,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link rel="stylesheet" href="../beauties/css/style_auth.css">
-    <link rel="icon" href="../beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/taxi/beauties/css/style_auth.css">
+    <link rel="icon" href="/taxi/beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
 </head>
 <body>
 

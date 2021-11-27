@@ -14,8 +14,8 @@
 <html>
 <head>
     <meta charset = "UTF-8">
-    <link rel="stylesheet" href="../beauties/css/style.css">
-    <link rel="icon" href="../beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/taxi/beauties/css/style.css">
+    <link rel="icon" href="/taxi/beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
     <title> Timmy</title>
 </head>
 <body>
@@ -37,7 +37,7 @@
                         }
                     } else {
                         %>
-                            <jsp:forward page="../beauties/img/oks.jpg"/>
+                            <jsp:forward page="../index.jsp"/>
                         <%
                     }
                     break;

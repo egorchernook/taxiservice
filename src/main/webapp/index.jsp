@@ -9,24 +9,24 @@
 <html>
 <head>
     <meta charset = "UTF-8">
-    <link rel="stylesheet" href="beauties/css/style.css">
-    <link rel="icon" href="beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
+    <link rel="stylesheet" href="/taxi/beauties/css/style.css">
+    <link rel="icon" href="/taxi/beauties/icons/Timmy_logo_color.png" type="image/x-icon"/>
     <title> Timmy</title>
 </head>
 <body>
     <header class="header">
         <div class="header_inner">
-            <div class="logo"><a href="beauties/html/auth_client.html"></a></div>
+            <div class="logo"><a href="/taxi/beauties/html/auth_client.html"></a></div>
             <nav class="nav">
-                <a class="nav_link" href="beauties/img/oks.jpg"> Пользователям </a>
-                <a class="nav_link" href="beauties/img/oks.jpg"> Водителям </a>
+                <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Пользователям </a>
+                <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Водителям </a>
             </nav>
             <nav class="nav">
-                <a class="nav_link" href="beauties/html/auth_client.html">
-                    <img src="beauties/icons/Login%20Icon.png" alt="logo">
+                <a class="nav_link" href="/taxi/beauties/html/auth_client.html">
+                    <img src="/taxi/beauties/icons/Login%20Icon.png" alt="logo">
                     Войти
                 </a>
-                <a class="reg" href="beauties/html/reg.html">
+                <a class="reg" href="/taxi/beauties/html/reg.html">
                     Зарегестрироваться
                 </a>
             </nav>
@@ -77,8 +77,8 @@
         <div class="footer__inner">
             <div class="nav_2"> © 2021 ООО «Timmy» </div>
             <nav class="nav_3">
-                <a class="nav_link" href="beauties/img/oks.jpg"> Пользовательское соглашение </a>
-                <a class="nav_link" href="beauties/img/oks.jpg"> Согласие на обработку данных </a>
+                <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Пользовательское соглашение </a>
+                <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Согласие на обработку данных </a>
             </nav>
         </div>
 
