@@ -5,6 +5,8 @@
   Time: 11:01
   To change this template use File | Settings | File Templates.
 --%>
+<jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
+<jsp:useBean id="currentOrder" class="order.Order" scope="session"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
