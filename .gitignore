@@ -1,4 +1,6 @@
-/.idea/
+.idea
+
+ojdbc8-full
 
 target/
 
