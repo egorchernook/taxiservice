@@ -27,6 +27,13 @@ public class Client extends User {
         this.phoneNumber = phoneNumber;
     }
 
+    public Client(Long id, String name, String login, Integer password, String phoneNumber, Integer rate, OrderCollection orderCollection) {
+        super(id, name, login, password);
+        this.phoneNumber = phoneNumber;
+        this.rate = rate;
+        this.orderCollection = orderCollection;
+    }
+
     public void copy(Client other){
         this.copy( (User) other );
         this.phoneNumber = other.getPhoneNumber();

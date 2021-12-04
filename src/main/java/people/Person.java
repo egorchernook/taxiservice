@@ -4,10 +4,25 @@ import сollectionsInterfaces.Identifiable;
 import java.util.Objects;
 
 public class Person {
+    private Long id;
     private String name;
 
     protected Person(){
+        this.id = 0L;
         this.name=null;
+    }
+
+    protected Person(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Person(String name){

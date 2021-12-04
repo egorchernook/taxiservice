@@ -42,7 +42,7 @@ public class OrderCollection
     @Override
     public Order find(String pattern) {
         for ( Order a : orderMap.values() ){
-            if (  (a.getNumber() != null ) && a.getNumber().toString().equals( pattern )){
+            if (  (a.getId() != null ) && a.getId().toString().equals( pattern ) ){
                 return a;
             }
         }

@@ -6,40 +6,44 @@ import сollectionsInterfaces.Identifiable;
 import java.util.Date;
 import java.util.Objects;
 
-public class Order implements Identifiable {
+public class Order implements Identifiable{
     private static Long counter=0L;
-    private Long number;
+    private Long id;
+    private String number;
     private AddressCollection addressCollection = new AddressCollection();
     private Status status;
     private Integer feedback = 500;
     private Integer price;
     private Date orderDate = new Date();
 
+    @Override
+    public Long getId() {
+        return id;
+    }
+
     public Order() {
     }
 
     public Order(AddressCollection addressCollection, Integer price, Date orderDate) {
-        this.number = counter++;
+        this.id = counter;
+        this.number = (counter++).toString();
         this.addressCollection = addressCollection;
         this.orderDate = orderDate;
         this.status = Status.booked;
         this.price = price;
     }
     public Order(AddressCollection addressCollection, Integer price) {
-        this.number = counter++;
+        this.number = (counter++).toString();
         this.addressCollection = addressCollection;
         this.status = Status.booked;
         this.price = price;
     }
 
-    public Long getNumber() {
+    public String getNumber() {
         return number;
     }
-    @Override
-    public Long getId() {
-        return this.getNumber();
-    }
-    public void setNumber(Long number) {
+
+    public void setNumber(String number) {
         this.number = number;
     }
 

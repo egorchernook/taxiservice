@@ -19,6 +19,12 @@ public class User extends Person {
         this.password = other.getPassword();
     }
 
+    protected User(Long id, String name, String login, Integer password) {
+        super(id, name);
+        this.login = login;
+        this.password = password;
+    }
+
     public void copy(User other){
         this.setName( other.getName() );
         this.login = other.getLogin();
