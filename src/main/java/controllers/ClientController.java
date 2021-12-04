@@ -36,16 +36,15 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     @Override
     public void loadFromDB(ConnectDB connectDB){
-
+        String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
+                + "Client.PHONE_NUMBER, Client.RATE"
+                + "FROM"
+                + connectDB.getDBUsername() + ".User"
+                + connectDB.getDBUsername() + ".Client"
+                + "WHERE Client.id_User = User.ID"
+                + "order by name";
         try (
                 Connection connection = connectDB.getConnection();
-                String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
-                                         + "Client.PHONE_NUMBER, Client.RATE"
-                                         + "FROM"
-                                         + connectDB.getDBUsername() + ".User"
-                                         + connectDB.getDBUsername() + ".Client"
-                                         + "WHERE Client.id_User = User.ID"
-                                         + "order by name";
                 PreparedStatement statement = connection.prepareStatement(prepareStatement_);
                 ResultSet resultSet = statement.executeQuery())
         {
