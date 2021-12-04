@@ -11,6 +11,7 @@ import java.util.Set;
 public class ClientController implements ConnectedWithDB<Client> {
     private ClientCollection clientCollection = new ClientCollection();
 
+    //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
     }
 
@@ -38,12 +39,12 @@ public class ClientController implements ConnectedWithDB<Client> {
     public void loadFromDB(ConnectDB connectDB){
 
         String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
-                + "Client.PHONE_NUMBER, Client.RATE"
-                + "FROM"
-                + connectDB.getDBUsername() + ".User"
-                + connectDB.getDBUsername() + ".Client"
-                + "WHERE Client.id_User = User.ID"
-                + "order by name";
+                                 + "Client.PHONE_NUMBER, Client.RATE"
+                                 + "FROM"
+                                 + connectDB.getDBUsername() + ".User"
+                                 + connectDB.getDBUsername() + ".Client"
+                                 + "WHERE Client.id_User = User.ID"
+                                 + "order by name";
 
         try (
                 Connection connection = connectDB.getConnection();
@@ -73,11 +74,12 @@ public class ClientController implements ConnectedWithDB<Client> {
     public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) {
         Long newId = client.getId();
         if( isEdited ){
+            String query = "update" + connectDB.getDBUsername() + ".User"
+                    + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?;"
+                    + "update" + connectDB.getDBUsername() + ".Client"
+                    + " set PHOME_NUMBER=?, RATE=? where id_User=?;";
             try(Connection connection = connectDB.getConnection() ){
-                String query = "update" + connectDB.getDBUsername() + ".User"
-                             + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?;"
-                             + "update" + connectDB.getDBUsername() + ".Client"
-                             + " set PHOME_NUMBER=?, RATE=? where id_User=?;";
+
                 try (PreparedStatement statement = connection.prepareStatement(query);) {
                     statement.setString(1, client.getName());
                     statement.setString(2, client.getLogin());
@@ -101,11 +103,11 @@ public class ClientController implements ConnectedWithDB<Client> {
             }
 
         } else {
-
+            String main_query = "select echernook.MAIN_SEQUENCE.nextval from dual";
+            String query = "insert into echernook.User(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?);"
+                    + "insert into echernook.Client(PHONE_NUMBER, RATE, id_User) values(?, ?, ?);";
             try(Connection connection = connectDB.getConnection()){
-                String main_query = "select echernook.MAIN_SEQUENCE.nextval from dual";
-                String query = "insert into echernook.User(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?);"
-                             + "insert into echernook.Client(PHONE_NUMBER, RATE, id_User) values(?, ?, ?);";
+
 
                 try(Statement stmt = connection.createStatement(); ResultSet rs = stmt.executeQuery(main_query)){
                     while(rs.next()){
@@ -147,9 +149,10 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     @Override
     public void removeFromDB(ConnectDB connectDB, Long id_) {
+        String query = "DELETE FROM echernook.Client WHERE id_User=?;"
+                + "DELETE FROM echernook.User WHERE id=?;";
         try (Connection connection = connectDB.getConnection()){
-            String query = "DELETE FROM echernook.Client WHERE id_User=?;"
-                         + "DELETE FROM echernook.User WHERE id=?;";
+
 
             try (PreparedStatement statement = connection.prepareStatement(query);){
                 statement.setLong(1, id_);
