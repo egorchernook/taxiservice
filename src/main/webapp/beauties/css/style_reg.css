@@ -4,6 +4,10 @@
     text-align: center;
 }
 
+*{
+    box-sizing: border-box;
+}
+
 .card{
     position: absolute;
     width: 413px;
@@ -81,7 +85,7 @@
     display: block;
     margin-top: 10px;
     padding-left: 20px;
-    width: 279px;
+    width: 299px;
     height: 56px;
     margin-inline: auto;
     border: none;

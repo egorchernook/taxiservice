@@ -10,6 +10,10 @@
     padding: 12px 161px;
 }
 
+*{
+    box-sizing: border-box;
+}
+
 .header_inner{
     display: flex;
     justify-content: space-between;
@@ -93,10 +97,19 @@
     height: 27px;
     padding-right: 10px;
     cursor: pointer;
-    background: url("../icons/Login Icon.svg") no-repeat center;
+    background: url("../icons/login.svg") no-repeat center;
     background-size: contain;
+}
 
+.profile{
+    display: inline-block;
 
+    width: 25px;
+    height: 25px;
+    padding-right: 10px;
+    cursor: pointer;
+    background: url("../icons/cab.svg") no-repeat center;
+    background-size: contain;
 }
 
 .plus{
