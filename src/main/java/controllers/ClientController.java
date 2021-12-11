@@ -1,6 +1,12 @@
 package controllers;
 
 import DataBase.ConnectDB;
+import address.Address;
+import address.AddressCollection;
+import order.Order;
+import order.OrderCollection;
+import order.Status;
+import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import people.users.client.Client;
 import people.users.client.ClientCollection;
 import сollectionsInterfaces.ConnectedWithDB;
@@ -61,6 +67,58 @@ public class ClientController implements ConnectedWithDB<Client> {
                                             resultSet.getString(5),
                                             resultSet.getInt(6),
                                 null);
+
+                    String orderPrepareStatement_ = "SELECT Order.ID, Order.NUM, Order.FEEDBACK, "
+                                                  + "Order.PRICE, Order.ORDER_DATE, Order_Status.NAME"
+                                                  + "FROM"
+                                                  + connectDB.getDBUsername() + ".Order"
+                                                  + connectDB.getDBUsername() + ".Order_Status"
+                                                  + "WHERE Order_Status.ID = Order.ID_Status"
+                                                  + "AND Order.ID = " + client.getId().toString();
+
+                    OrderCollection orderCollection = new OrderCollection();
+                    try(
+                            PreparedStatement orderStatement = connection.prepareStatement( orderPrepareStatement_);
+                            ResultSet orderResultSet = orderStatement.executeQuery();
+                            )
+                    {
+                        while( orderResultSet.next() ){
+                            Order order = new Order( orderResultSet.getLong(1),
+                                                     orderResultSet.getString(2),
+                                                     null,
+                                                     orderResultSet.getString(6),
+                                                     orderResultSet.getInt(3),
+                                                     orderResultSet.getInt(4),
+                                                     orderResultSet.getDate(5));
+
+                            String addressPrepareStatement_ = "SELECT Address.NAME"
+                                                            + "FROM"
+                                                            + connectDB.getDBUsername() + ".Address"
+                                                            + connectDB.getDBUsername() + ".Order_Address"
+                                                            + "WHERE Order_Address.ID_ADDRESS = Address.id"
+                                                            + "AND Order_Address.ID_ORDER = " + order.getId().toString();
+
+                            AddressCollection addressCollection = new AddressCollection();
+                            try(
+                                    PreparedStatement addressStatement = connection.prepareStatement( addressPrepareStatement_);
+                                    ResultSet addressResultSet = addressStatement.executeQuery();
+                            ){
+                                while( addressResultSet.next() ){
+                                    Address address = new Address( addressResultSet.getString(1));
+
+                                    addressCollection.add( address );
+                                }
+                            } catch (SQLException sqlException) {
+                                    System.out.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                            }
+                            order.setAddressCollection( addressCollection);
+                            orderCollection.add( order );
+                        }
+                    } catch (SQLException sqlException) {
+                        System.out.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                    }
+
+                client.setOrderCollection( orderCollection);
                 this.add( client );
             }
 

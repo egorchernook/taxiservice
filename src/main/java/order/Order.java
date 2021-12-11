@@ -11,7 +11,7 @@ public class Order implements Identifiable{
     private Long id;
     private String number;
     private AddressCollection addressCollection = new AddressCollection();
-    private Status status;
+    private String status;
     private Integer feedback = 500;
     private Integer price;
     private Date orderDate = new Date();
@@ -24,18 +24,28 @@ public class Order implements Identifiable{
     public Order() {
     }
 
+    public Order(Long id, String number, AddressCollection addressCollection, String status, Integer feedback, Integer price, Date orderDate) {
+        this.id = id;
+        this.number = number;
+        this.addressCollection = addressCollection;
+        this.status = status;
+        this.feedback = feedback;
+        this.price = price;
+        this.orderDate = orderDate;
+    }
+
     public Order(AddressCollection addressCollection, Integer price, Date orderDate) {
         this.id = counter;
         this.number = (counter++).toString();
         this.addressCollection = addressCollection;
         this.orderDate = orderDate;
-        this.status = Status.booked;
+        this.status = Status.booked.toString();
         this.price = price;
     }
     public Order(AddressCollection addressCollection, Integer price) {
         this.number = (counter++).toString();
         this.addressCollection = addressCollection;
-        this.status = Status.booked;
+        this.status = Status.booked.toString();
         this.price = price;
     }
 
@@ -55,11 +65,11 @@ public class Order implements Identifiable{
         this.addressCollection = addressCollection;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -94,7 +104,7 @@ public class Order implements Identifiable{
         Order order = (Order) o;
         return Objects.equals(number, order.number)
                 && Objects.equals(addressCollection, order.addressCollection)
-                && status == order.status
+                && status.equals(order.status)
                 && Objects.equals(feedback, order.feedback)
                 && Objects.equals(price, order.price)
                 && Objects.equals(orderDate, order.orderDate);
