@@ -31,7 +31,7 @@
                 if( currentClient.getId() == -1 ){
                     %>
                     <a class="nav_link" href="/taxi/beauties/html/auth_client.html"> <div class="login"></div> Войти </a>
-                    <a class="reg" href="/taxi/beauties/html/reg.html"> Зарегестрироваться </a>
+                    <a class="reg" href="/taxi/beauties/html/reg.html"> Зарегистрироваться </a>
                     <%
                 } else {
                     %>
