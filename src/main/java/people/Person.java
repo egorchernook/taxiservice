@@ -17,6 +17,11 @@ public class Person {
         this.name = name;
     }
 
+    public void copy( Person other){
+        this.id = other.id;
+        this.name = other.name;
+    }
+
     public Long getId() {
         return id;
     }

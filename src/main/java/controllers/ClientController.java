@@ -5,8 +5,6 @@ import address.Address;
 import address.AddressCollection;
 import order.Order;
 import order.OrderCollection;
-import order.Status;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 import people.users.client.Client;
 import people.users.client.ClientCollection;
 import сollectionsInterfaces.ConnectedWithDB;
@@ -19,6 +17,12 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
+        this.add( new Client( 1L, "Егор", "Егор", "1".hashCode(), "+78888888888", 500, null ) );
+        /*
+        this.add( new Client( 2L, "Гоша", "Гоша",  "1".hashCode(), "+77777777777", 500, null ) );
+        this.add( new Client( 3L,  "Мадина", "Мадина",  "1".hashCode(), "+76666666666", 500, null ) );
+        this.add( new Client( 4L,  "Клава", "Клава",  "1".hashCode(), "+75555555555", 500, null) );
+        */
     }
 
     public void add(Client client){
@@ -42,7 +46,7 @@ public class ClientController implements ConnectedWithDB<Client> {
     }
 
     @Override
-    public void loadFromDB(ConnectDB connectDB){
+    public void loadFromDB(ConnectDB connectDB) throws Exception {
 
         String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
                                  + "Client.PHONE_NUMBER, Client.RATE"
@@ -109,13 +113,13 @@ public class ClientController implements ConnectedWithDB<Client> {
                                     addressCollection.add( address );
                                 }
                             } catch (SQLException sqlException) {
-                                    System.out.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                                    System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
                             }
                             order.setAddressCollection( addressCollection);
                             orderCollection.add( order );
                         }
                     } catch (SQLException sqlException) {
-                        System.out.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                        System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
                     }
 
                 client.setOrderCollection( orderCollection);
@@ -123,47 +127,64 @@ public class ClientController implements ConnectedWithDB<Client> {
             }
 
         } catch (SQLException sqlException) {
-            System.out.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+            System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
         }
         System.out.println("dataBase");
     }
 
     @Override
-    public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) {
+    public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) throws Exception {
         Long newId = client.getId();
         if( isEdited ){
-            String query = "update" + connectDB.getDBUsername() + ".User"
-                    + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?;"
-                    + "update" + connectDB.getDBUsername() + ".Client"
-                    + " set PHOME_NUMBER=?, RATE=? where id_User=?;";
+            String query1 = "update " + connectDB.getDBUsername() + ".User"
+                    + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?";
+
+            String query2 = "update " + connectDB.getDBUsername() + ".Client"
+                    + " set PHOME_NUMBER=?, RATE=? where id_User=?";
             try(Connection connection = connectDB.getConnection() ){
 
-                try (PreparedStatement statement = connection.prepareStatement(query);) {
+                try (PreparedStatement statement = connection.prepareStatement(query1)) {
                     statement.setString(1, client.getName());
                     statement.setString(2, client.getLogin());
                     statement.setInt(3, client.getPassword());
                     statement.setLong(4, client.getId());
-                    statement.setString(5, client.getPhoneNumber());
-                    statement.setInt(6, client.getRate());
-                    statement.setLong(7, client.getId());
 
                     statement.executeUpdate();
                     connection.commit();
                 } catch (SQLException sqlException) {
+                    System.err.println("Cannot update user");
                     sqlException.printStackTrace();
                     connection.rollback();
+                    throw new Exception("Cannot update user" + sqlException.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
-            }catch (SQLException throwables) {
-                System.out.println("Cannot create connection");
-                throwables.printStackTrace();
+
+                try (PreparedStatement statement = connection.prepareStatement(query2)) {
+                    statement.setString(1, client.getPhoneNumber());
+                    statement.setInt(2, client.getRate());
+                    statement.setLong(3, client.getId());
+
+                    statement.executeUpdate();
+                    connection.commit();
+                } catch (SQLException sqlException) {
+                    System.err.println("Cannot update user");
+                    sqlException.printStackTrace();
+                    connection.rollback();
+                    throw new Exception("Cannot update user" + sqlException.getMessage());
+                }finally {
+                    connectDB.closeConnection();
+                }
+
+            }catch (SQLException exception) {
+                System.err.println("Cannot create connection");
+                exception.printStackTrace();
             }
 
         } else {
             String main_query = "select echernook.MAIN_SEQUENCE.nextval from dual";
-            String query = "insert into echernook.User(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?);"
-                    + "insert into echernook.Client(PHONE_NUMBER, RATE, id_User) values(?, ?, ?);";
+            String query1 = "insert into echernook.User(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?)";
+            String query2 = "insert into echernook.Client(PHONE_NUMBER, RATE, id_User) values(?, ?, ?)";
             try(Connection connection = connectDB.getConnection()){
 
 
@@ -171,33 +192,51 @@ public class ClientController implements ConnectedWithDB<Client> {
                     while(rs.next()){
                         newId = rs.getLong(1);
                     }
-                }catch (SQLException throwables) {
-                    System.out.println("Cannot select sequence");
-                    throwables.printStackTrace();
+                }catch (SQLException exception) {
+                    System.err.println("Cannot select sequence");
+                    exception.printStackTrace();
                 }
 
-                try (PreparedStatement statement = connection.prepareStatement(query)) {
+
+
+                try (PreparedStatement statement = connection.prepareStatement(query1)) {
                     statement.setLong(1, newId);
                     statement.setString(2, client.getName());
                     statement.setString(3, client.getLogin());
                     statement.setInt(4, client.getPassword());
-                    statement.setString(5, client.getPhoneNumber());
-                    statement.setInt(6, client.getRate());
-                    statement.setLong(7, newId);
 
                     statement.executeUpdate();
                     connection.commit();
 
-                } catch (SQLException throwables) {
-                    System.out.println("Cannot create this parameter");
-                    throwables.printStackTrace();
+                } catch (SQLException exception) {
+                    System.err.println("Cannot create this parameter");
+                    exception.printStackTrace();
                     connection.rollback();
+                    throw new Exception("Cannot update user" + exception.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
-            }catch (SQLException throwables) {
-                System.out.println("Cannot create connection");
-                throwables.printStackTrace();
+
+                try (PreparedStatement statement = connection.prepareStatement(query2)) {
+                    statement.setString(1, client.getPhoneNumber());
+                    statement.setInt(2, client.getRate());
+                    statement.setLong(3, newId);
+
+                    statement.executeUpdate();
+                    connection.commit();
+
+                } catch (SQLException exception) {
+                    System.err.println("Cannot create this parameter");
+                    exception.printStackTrace();
+                    connection.rollback();
+                    throw new Exception("Cannot update user" + exception.getMessage());
+                }finally {
+                    connectDB.closeConnection();
+                }
+
+            }catch (SQLException exception) {
+                System.err.println("Cannot create connection");
+                exception.printStackTrace();
             }
 
         }
@@ -206,26 +245,35 @@ public class ClientController implements ConnectedWithDB<Client> {
     }
 
     @Override
-    public void removeFromDB(ConnectDB connectDB, Long id_) {
-        String query = "DELETE FROM echernook.Client WHERE id_User=?;"
-                + "DELETE FROM echernook.User WHERE id=?;";
+    public void removeFromDB(ConnectDB connectDB, Long id_) throws Exception {
+        String query1 = "DELETE FROM echernook.Client WHERE id_User=?";
+        String query2 = "DELETE FROM echernook.User WHERE id=?";
         try (Connection connection = connectDB.getConnection()){
 
-
-            try (PreparedStatement statement = connection.prepareStatement(query);){
+            try (PreparedStatement statement = connection.prepareStatement(query1)){
                 statement.setLong(1, id_);
+                statement.execute();
+
+            } catch (SQLException exception) {
+                System.err.println(exception.getMessage());
+                throw new Exception("Cannot update user" + exception.getMessage());
+            }finally {
+                connectDB.closeConnection();
+            }
+            try (PreparedStatement statement = connection.prepareStatement(query2)){
                 statement.setLong(2, id_);
                 statement.execute();
 
-            } catch (SQLException throwables) {
-                System.out.println(throwables.getMessage());
+            } catch (SQLException exception) {
+                System.err.println(exception.getMessage());
+                throw new Exception("Cannot update user" + exception.getMessage());
             }finally {
                 connectDB.closeConnection();
             }
 
-        }catch (SQLException throwables) {
-            System.out.println("Cannot create connection");
-            throwables.printStackTrace();
+        }catch (SQLException exception) {
+            System.err.println("Cannot create connection");
+            exception.printStackTrace();
         }
 
     }

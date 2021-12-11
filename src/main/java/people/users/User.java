@@ -26,6 +26,7 @@ public class User extends Person {
     }
 
     public void copy(User other){
+        this.copy( (Person) other);
         this.setName( other.getName() );
         this.login = other.getLogin();
         this.password = other.getPassword();
