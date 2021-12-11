@@ -8,7 +8,7 @@ public class Person {
     private String name;
 
     protected Person(){
-        this.id = 0L;
+        this.id = -1L;
         this.name=null;
     }
 
