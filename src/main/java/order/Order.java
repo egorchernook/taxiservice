@@ -22,6 +22,8 @@ public class Order implements Identifiable{
     }
 
     public Order() {
+        this.id = counter++;
+        this.number = id.toString();
     }
 
     public Order(Long id, String number, AddressCollection addressCollection, String status, Integer feedback, Integer price, Date orderDate) {

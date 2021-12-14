@@ -28,5 +28,6 @@
     <orderEntry type="library" exported="" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
     <orderEntry type="library" exported="" name="Maven: javax.mvc:javax.mvc-api:1.0.0" level="project" />
     <orderEntry type="library" exported="" name="ojdbc8" level="project" />
+    <orderEntry type="library" name="leaflet" level="application" />
   </component>
 </module>
