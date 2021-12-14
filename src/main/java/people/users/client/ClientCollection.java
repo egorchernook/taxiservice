@@ -45,18 +45,22 @@ public class ClientCollection
     @Override
     public Client find(String pattern) {
         for (Client a : clientMap.values()) {
-            if ((a.getPhoneNumber() != null) && a.getPhoneNumber().equals(pattern) ) {
+            if ( (a.getPhoneNumber() != null && a.getPhoneNumber().equals(pattern)) ||
+                    (a.getLogin() != null && a.getLogin().equals(pattern)) ||
+                    (a.getName() != null && a.getName().equals(pattern)) ) {
                 return a;
             }
         }
         return null;
     }
-    //TODO : сделать поиск по остальным параметрам
+
     @Override
     public Set<Client> findAll(String pattern) {
         Set<Client> clientsSet = new HashSet<>();
         for (Client a : clientMap.values()) {
-            if ((a.getPhoneNumber() != null) && a.getPhoneNumber().equals(pattern) ) {
+            if ( (a.getPhoneNumber() != null && a.getPhoneNumber().equals(pattern)) ||
+                    (a.getLogin() != null && a.getLogin().equals(pattern)) ||
+                    (a.getName() != null && a.getName().equals(pattern)) ) {
                 clientsSet.add(a);
             }
         }

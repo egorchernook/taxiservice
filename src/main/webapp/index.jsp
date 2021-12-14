@@ -35,7 +35,7 @@
                     <%
                 } else {
                     %>
-                    <a class="nav_link" href="/taxi/beauties/html/profile.html"> <div class="profile"></div> Личный кабинет </a>
+                    <a class="nav_link" href="/taxi/account/profile.jsp"> <div class="profile"></div> Личный кабинет </a>
                     <%
                 }
             %>

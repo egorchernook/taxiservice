@@ -1,8 +1,8 @@
-.idea
+.idea/
 
 out/
 
-ojdbc8-full
+ojdbc8-full/
 
 target/
 
