@@ -1,6 +1,7 @@
 package controllers;
 
 import DataBase.ConnectDB;
+import DataBase.ConnectionException;
 import address.Address;
 import address.AddressCollection;
 import order.Order;
@@ -17,8 +18,8 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
-        this.add( new Client( 1L, "Егор", "Егор", "1".hashCode(), "+78888888888", 500, null ) );
         /*
+        this.add( new Client( 1L, "Егор", "Егор", "1".hashCode(), "+78888888888", 500, null ) );
         this.add( new Client( 2L, "Гоша", "Гоша",  "1".hashCode(), "+77777777777", 500, null ) );
         this.add( new Client( 3L,  "Мадина", "Мадина",  "1".hashCode(), "+76666666666", 500, null ) );
         this.add( new Client( 4L,  "Клава", "Клава",  "1".hashCode(), "+75555555555", 500, null) );
@@ -46,7 +47,7 @@ public class ClientController implements ConnectedWithDB<Client> {
     }
 
     @Override
-    public void loadFromDB(ConnectDB connectDB) throws Exception {
+    public void loadFromDB(ConnectDB connectDB) throws ConnectionException {
 
         String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
                                  + "Client.PHONE_NUMBER, Client.RATE"
@@ -127,13 +128,13 @@ public class ClientController implements ConnectedWithDB<Client> {
             }
 
         } catch (SQLException sqlException) {
-            System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+            System.err.println("userController loadUserStatusFromDB" + sqlException.getMessage());
         }
         System.out.println("dataBase");
     }
 
     @Override
-    public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) throws Exception {
+    public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) throws ConnectionException {
         Long newId = client.getId();
         if( isEdited ){
             String query1 = "update " + connectDB.getDBUsername() + ".User"
@@ -155,7 +156,7 @@ public class ClientController implements ConnectedWithDB<Client> {
                     System.err.println("Cannot update user");
                     sqlException.printStackTrace();
                     connection.rollback();
-                    throw new Exception("Cannot update user" + sqlException.getMessage());
+                    throw new ConnectionException("Cannot update user" + sqlException.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -171,7 +172,7 @@ public class ClientController implements ConnectedWithDB<Client> {
                     System.err.println("Cannot update user");
                     sqlException.printStackTrace();
                     connection.rollback();
-                    throw new Exception("Cannot update user" + sqlException.getMessage());
+                    throw new ConnectionException("Cannot update user" + sqlException.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -212,7 +213,7 @@ public class ClientController implements ConnectedWithDB<Client> {
                     System.err.println("Cannot create this parameter");
                     exception.printStackTrace();
                     connection.rollback();
-                    throw new Exception("Cannot update user" + exception.getMessage());
+                    throw new ConnectionException("Cannot update user" + exception.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -229,7 +230,7 @@ public class ClientController implements ConnectedWithDB<Client> {
                     System.err.println("Cannot create this parameter");
                     exception.printStackTrace();
                     connection.rollback();
-                    throw new Exception("Cannot update user" + exception.getMessage());
+                    throw new ConnectionException("Cannot update user" + exception.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -245,7 +246,7 @@ public class ClientController implements ConnectedWithDB<Client> {
     }
 
     @Override
-    public void removeFromDB(ConnectDB connectDB, Long id_) throws Exception {
+    public void removeFromDB(ConnectDB connectDB, Long id_) throws ConnectionException {
         String query1 = "DELETE FROM echernook.Client WHERE id_User=?";
         String query2 = "DELETE FROM echernook.User WHERE id=?";
         try (Connection connection = connectDB.getConnection()){
@@ -256,7 +257,7 @@ public class ClientController implements ConnectedWithDB<Client> {
 
             } catch (SQLException exception) {
                 System.err.println(exception.getMessage());
-                throw new Exception("Cannot update user" + exception.getMessage());
+                throw new ConnectionException("Cannot update user" + exception.getMessage());
             }finally {
                 connectDB.closeConnection();
             }
@@ -266,7 +267,7 @@ public class ClientController implements ConnectedWithDB<Client> {
 
             } catch (SQLException exception) {
                 System.err.println(exception.getMessage());
-                throw new Exception("Cannot update user" + exception.getMessage());
+                throw new ConnectionException("Cannot update user" + exception.getMessage());
             }finally {
                 connectDB.closeConnection();
             }

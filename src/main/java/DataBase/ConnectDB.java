@@ -27,7 +27,7 @@ public class ConnectDB {
         this.DBUsername = DBUsername;
     }
 
-    public ConnectDB() throws Exception {
+    public ConnectDB() throws ConnectionException {
         try{
             this.oracleDataSource = new OracleDataSource();
             oracleDataSource.setURL(URL);
@@ -37,7 +37,7 @@ public class ConnectDB {
         } catch (SQLException sqlException) {
             System.err.println("ERROR! " + sqlException.getMessage());
             sqlException.printStackTrace();
-            throw new Exception("Cannot connect DataBase" + sqlException.getMessage());
+            throw new ConnectionException("Cannot connect DataBase" + sqlException.getMessage());
         }
     }
 

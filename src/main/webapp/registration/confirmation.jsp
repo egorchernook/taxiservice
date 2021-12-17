@@ -20,6 +20,7 @@
     String code = request.getParameter("code");
     if( code != null ){
         if( code.equals("0000") ){
+            currentClient.setId(0L);
             %>
             <jsp:forward page="../index.jsp"/>
             <%
