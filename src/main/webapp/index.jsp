@@ -94,7 +94,7 @@
                             }
                         }
 
-                        if(currentOrder.getAddressCollection() == null){
+                        if(currentOrder.getAddressCollection().size() == 0){
                             AddressCollection temp = new AddressCollection();
                             temp.add( new Address("") );
                             temp.add( new Address("") );
@@ -122,290 +122,274 @@
                                 </label>
                             </div>
                             <%
-                        }
-                        switch ( currentOrder.getAddressCollection().size() ){
-                            case 2:
-                                landing_address_ = request.getParameter("landing_address");
-                                destination_address_ = request.getParameter("destination_address");
+                            currentOrder.setAddressCollection( temp);
+                        } else {
+                            switch ( currentOrder.getAddressCollection().size() ){
+                                case 2:
+                                    landing_address_ = request.getParameter("landing_address");
+                                    destination_address_ = request.getParameter("destination_address");
 
-                                newAddressCollection = new AddressCollection();
+                                    newAddressCollection = new AddressCollection();
 
-                                iter = currentOrder.getAddressCollection().getCollectionIterator();
-                                String fst = "";
-                                String snd = "";
-                                if( landing_address_ != null ) {
-                                    newAddressCollection.add( new Address(landing_address_));
-                                    fst = landing_address_;
-                                } else {
-                                    fst = iter.next().toString();
-                                    newAddressCollection.add( new Address(fst));
-                                }
-                                if( destination_address_ != null ) {
-                                    newAddressCollection.add( new Address(destination_address_));
-                                    snd = destination_address_;
-                                } else {
-                                    snd = iter.next().toString();
-                                    newAddressCollection.add( new Address(snd));
-                                }
-
-                                if ( fst.equals("") ) {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( snd.equals("") ){
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=snd%> required>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                currentOrder.setAddressCollection( newAddressCollection);
-
-                            case 3:
-                                landing_address_ = request.getParameter("landing_address");
-                                destination_address_ = request.getParameter("destination_address");
-                                address_1_ = request.getParameter("address_1");
-                                newAddressCollection = new AddressCollection();
-
-                                iter = currentOrder.getAddressCollection().getCollectionIterator();
-                                fst = "";
-                                snd = "";
-                                String trd = "";
-                                if( landing_address_ != null ) {
-                                    newAddressCollection.add( new Address(landing_address_));
-                                    fst = landing_address_;
-                                } else {
-                                    fst = iter.next().toString();
-                                    newAddressCollection.add( new Address(fst));
-                                }
-
-                                if( destination_address_ != null ) {
-                                    newAddressCollection.add( new Address(destination_address_));
-                                    trd = destination_address_;
-                                } else {
-                                    trd = iter.next().toString();
-                                    newAddressCollection.add( new Address(trd));
-                                }
-
-                                if( address_1_ != null ) {
-                                    newAddressCollection.add( new Address(address_1_));
-                                    snd = address_1_;
-                                } else {
-                                    snd = iter.next().toString();
-                                    newAddressCollection.add( new Address(snd));
-                                }
-
-                                if ( fst.equals("") ) {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( snd.equals("") ) {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" >
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( trd.equals("") ){
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=trd%> required>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                currentOrder.setAddressCollection( newAddressCollection);
-
-                            case 4:
-                                landing_address_ = request.getParameter("landing_address");
-                                destination_address_ = request.getParameter("destination_address");
-                                address_1_ = request.getParameter("address_1");
-                                address_2_ = request.getParameter("address_2");
-                                newAddressCollection = new AddressCollection();
-
-                                iter = currentOrder.getAddressCollection().getCollectionIterator();
-                                fst = "";
-                                snd = "";
-                                trd = "";
-                                String fth = "";
-                                if( landing_address_ != null ) {
-                                    newAddressCollection.add( new Address(landing_address_));
-                                    fst = landing_address_;
-                                } else {
-                                    fst = iter.next().toString();
-                                    newAddressCollection.add( new Address(fst));
-                                }
-
-                                if( destination_address_ != null ) {
-                                    newAddressCollection.add( new Address(destination_address_));
-                                    fth = destination_address_;
-                                } else {
-                                    fth = iter.next().toString();
-                                    newAddressCollection.add( new Address(fth));
-                                }
-
-                                if( address_1_ != null ) {
-                                    newAddressCollection.add( new Address(address_1_));
-                                    snd = address_1_;
-                                } else {
-                                    snd = iter.next().toString();
-                                    newAddressCollection.add( new Address(snd));
-                                }
-
-                                if( address_2_ != null ) {
-                                    newAddressCollection.add( new Address(address_2_));
-                                    trd = address_2_;
-                                } else {
-                                    trd = iter.next().toString();
-                                    newAddressCollection.add( new Address(trd));
-                                }
-
-                                if ( fst.equals("") ) {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( snd.equals("") ) {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" >
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( trd.equals("") ){
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" >
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" value=<%=trd%>>
-                                        </label>
-                                    </div>
-                                    <%
-                                }
-
-                                if ( fth.equals("") ){
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
-                                        </label>
-                                    </div>
-                                    <%
-                                } else {
-                                    %>
-                                    <div class="grey__button"> <i class="circle"></i>
-                                        <label>
-                                            <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=fth%> required>
-                                        </label>
-                                    </div>
-                                    <%
+                                    String fst = "";
+                                    String snd = "";
+                                    if( landing_address_ != null ) {
+                                        newAddressCollection.add( new Address(landing_address_));
+                                        fst = landing_address_;
+                                    } else {
+                                        fst = "";
+                                        newAddressCollection.add( new Address(fst));
                                     }
-                                currentOrder.setAddressCollection( newAddressCollection);
+                                    if( destination_address_ != null ) {
+                                        newAddressCollection.add( new Address(destination_address_));
+                                        snd = destination_address_;
+                                    } else {
+                                        snd = "";
+                                        newAddressCollection.add( new Address(snd));
+                                    }
 
-                            default:
-                                %>
-                                <div class="grey__button"> <i class="circle"></i>
-                                    <label>
-                                        <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
-                                    </label>
-                                </div>
-                                <div class="grey__button"> <i class="circle"></i>
-                                    <label>
-                                        <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
-                                    </label>
-                                </div>
-                                <%
+                                    if ( fst.equals("") ) {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( snd.equals("") ){
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=snd%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+                                    currentOrder.setAddressCollection( newAddressCollection);
+                                    break;
+                                case 3:
+                                    landing_address_ = request.getParameter("landing_address");
+                                    destination_address_ = request.getParameter("destination_address");
+                                    address_1_ = request.getParameter("address_1");
+                                    newAddressCollection = new AddressCollection();
+
+                                    fst = "";
+                                    snd = "";
+                                    String trd = "";
+                                    if( landing_address_ != null ) {
+                                        newAddressCollection.add( new Address(landing_address_));
+                                        fst = landing_address_;
+                                    } else {
+                                        fst = "";
+                                        newAddressCollection.add( new Address(fst));
+                                    }
+
+                                    if( destination_address_ != null ) {
+                                        newAddressCollection.add( new Address(destination_address_));
+                                        trd = destination_address_;
+                                    } else {
+                                        trd = "";
+                                        newAddressCollection.add( new Address(trd));
+                                    }
+
+                                    if( address_1_ != null ) {
+                                        newAddressCollection.add( new Address(address_1_));
+                                        snd = address_1_;
+                                    } else {
+                                        snd = "";
+                                        newAddressCollection.add( new Address(snd));
+                                    }
+
+                                    if ( fst.equals("") ) {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( snd.equals("") ) {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" >
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( trd.equals("") ){
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=trd%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+                                    currentOrder.setAddressCollection( newAddressCollection);
+                                    break;
+                                case 4:
+                                    landing_address_ = request.getParameter("landing_address");
+                                    destination_address_ = request.getParameter("destination_address");
+                                    address_1_ = request.getParameter("address_1");
+                                    address_2_ = request.getParameter("address_2");
+                                    newAddressCollection = new AddressCollection();
+
+                                    fst = "";
+                                    snd = "";
+                                    trd = "";
+                                    String fth = "";
+                                    if( landing_address_ != null ) {
+                                        newAddressCollection.add( new Address(landing_address_));
+                                        fst = landing_address_;
+                                    } else {
+                                        fst = "";
+                                        newAddressCollection.add( new Address(fst));
+                                    }
+
+                                    if( destination_address_ != null ) {
+                                        newAddressCollection.add( new Address(destination_address_));
+                                        fth = destination_address_;
+                                    } else {
+                                        fth = "";
+                                        newAddressCollection.add( new Address(fth));
+                                    }
+
+                                    if( address_1_ != null ) {
+                                        newAddressCollection.add( new Address(address_1_));
+                                        snd = address_1_;
+                                    } else {
+                                        snd = "";
+                                        newAddressCollection.add( new Address(snd));
+                                    }
+
+                                    if( address_2_ != null ) {
+                                        newAddressCollection.add( new Address(address_2_));
+                                        trd = address_2_;
+                                    } else {
+                                        trd = "";
+                                        newAddressCollection.add( new Address(trd));
+                                    }
+
+                                    if ( fst.equals("") ) {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( snd.equals("") ) {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" >
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( trd.equals("") ){
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" >
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" value=<%=trd%>>
+                                            </label>
+                                        </div>
+                                        <%
+                                    }
+
+                                    if ( fth.equals("") ){
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" required>
+                                            </label>
+                                        </div>
+                                        <%
+                                    } else {
+                                        %>
+                                        <div class="grey__button"> <i class="circle"></i>
+                                            <label>
+                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=fth%> required>
+                                            </label>
+                                        </div>
+                                        <%
+                                        }
+                                    currentOrder.setAddressCollection( newAddressCollection);
+                                    break;
+                                }
                         }
                     %>
                 </form>
