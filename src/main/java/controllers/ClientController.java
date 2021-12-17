@@ -115,12 +115,14 @@ public class ClientController implements ConnectedWithDB<Client> {
                                 }
                             } catch (SQLException sqlException) {
                                     System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                                    throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
                             }
                             order.setAddressCollection( addressCollection);
                             orderCollection.add( order );
                         }
                     } catch (SQLException sqlException) {
                         System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                        throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
                     }
 
                 client.setOrderCollection( orderCollection);
@@ -129,6 +131,7 @@ public class ClientController implements ConnectedWithDB<Client> {
 
         } catch (SQLException sqlException) {
             System.err.println("userController loadUserStatusFromDB" + sqlException.getMessage());
+            throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
         }
         System.out.println("dataBase");
     }
@@ -178,8 +181,9 @@ public class ClientController implements ConnectedWithDB<Client> {
                 }
 
             }catch (SQLException exception) {
-                System.err.println("Cannot create connection");
+                System.err.println("Cannot create connection" + exception.getMessage());
                 exception.printStackTrace();
+                throw new ConnectionException("Cannot create connection" + exception.getMessage());
             }
 
         } else {
@@ -194,8 +198,9 @@ public class ClientController implements ConnectedWithDB<Client> {
                         newId = rs.getLong(1);
                     }
                 }catch (SQLException exception) {
-                    System.err.println("Cannot select sequence");
+                    System.err.println("Cannot select sequence" + exception.getMessage() );
                     exception.printStackTrace();
+                    throw new ConnectionException("Cannot select sequence" + exception.getMessage());
                 }
 
 
@@ -236,8 +241,9 @@ public class ClientController implements ConnectedWithDB<Client> {
                 }
 
             }catch (SQLException exception) {
-                System.err.println("Cannot create connection");
+                System.err.println("Cannot create connection" + exception.getMessage());
                 exception.printStackTrace();
+                throw new ConnectionException("Cannot create connection" + exception.getMessage());
             }
 
         }
@@ -275,6 +281,7 @@ public class ClientController implements ConnectedWithDB<Client> {
         }catch (SQLException exception) {
             System.err.println("Cannot create connection");
             exception.printStackTrace();
+            throw new ConnectionException("Cannot create connection" + exception.getMessage());
         }
 
     }
