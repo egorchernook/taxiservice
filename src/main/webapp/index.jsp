@@ -414,8 +414,8 @@
                     <%--
                     //TODO: починить кнопки
                     --%>
-                    <button type="submit" formaction="/taxi/index.jsp" name="add_button" value="pressed" class="plus-button"> <i class="plus"></i> Добавить остановку </button>
-                    <button type="submit" formaction="/taxi/index.jsp" name="remove_button" value="pressed" class="plus-button"> <i class="cross"></i> Убрать остановку </button>
+                    <button type="submit" form="route" formaction="/taxi/index.jsp" name="add_button" value="pressed" class="plus-button"> <i class="plus"></i> Добавить остановку </button>
+                    <button type="submit" form="route" formaction="/taxi/index.jsp" name="remove_button" value="pressed" class="plus-button"> <i class="cross"></i> Убрать остановку </button>
                 </div>
                 <button class="submit-button" type="submit" form="route"> Заказать сейчас </button>
                 <form id="pending order" action="" method="get"> <button> Запланировать заранее</button> </form>
@@ -429,13 +429,14 @@
             --%>
             <script>
                 const map = new L.map('map').setView([54.9824, 73.3680], 13);
+
                 L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
-                    id: 'mapbox/streets-v11',
+                    id: 'egorchernook/ckx979xds03x514nnjt3jcugt',
                     tileSize: 512,
                     zoomOffset: -1,
-                    accessToken: 'pk.eyJ1IjoiZWdvcmNoZXJub29rIiwiYSI6ImNreDd3czY4NDBueGwydW8wM2l1NTJ1NmEifQ.kJLQwQUgoGEPJc2XHHph_Q'
+                    accessToken: 'pk.eyJ1IjoiZWdvcmNoZXJub29rIiwiYSI6ImNreDd3bm5uYjJ0aTgycXB6a29mbDN1N2IifQ.JjQ7VA90Qzj1U9euUNqLzQ'
                 }).addTo(map);
             </script>
 
