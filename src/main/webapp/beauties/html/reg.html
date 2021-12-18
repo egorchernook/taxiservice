@@ -4,16 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link rel="stylesheet" type="text/css" href="/taxi/beauties/css/style_reg.css">
-    <link rel="icon" href="/taxi/beauties/icons/logo.svg" type="image/x-icon"/>
+    <link rel="stylesheet" href="../css/style_reg.css">
+    <link rel="icon" href="../icons/logo.svg" type="image/x-icon"/>
 </head>
 <body>
     <div class="card">
         <div class="card-title">
-            <a href="/taxi/index.jsp"><div class="card-title-logo"></div></a>
+            <a href="index.html"><div class="card-title-logo"></div></a>
             <div class="card-title-name">Регистрация</div>
         </div>
-        <form action="/taxi/registration/confirmation.jsp" method="post">
+        <form action="confirmation.html" method="post">
             <label>
                 <span>Имя</span>
                 <input type="text" name="name" placeholder="Как вас зовут?" required>
@@ -26,7 +26,6 @@
                 <span>Пароль</span>
                 <input type="password" name="password" placeholder= ".........." required>
             </label>
-            <input type="submit" value="OK"/>
             <button class="submit-button" type="submit">Зарегистрироваться</button>
         </form>
         <div class="agreement">Нажимая «Зарегистрироваться», вы соглашаетесь с <a href="">Условиями использования Timmy</a> и подтверждаете прочтение <a href="">Политики конфиденциальности</a>.</div>
