@@ -1,6 +1,7 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="address.Address" %>
-<%@ page import="address.AddressCollection" %><%--
+<%@ page import="address.AddressCollection" %>
+<%@ page import="DataBase.ConnectionException" %><%--
   Created by IntelliJ IDEA.
   User: egor
   Date: 13.11.2021
@@ -29,7 +30,16 @@
 
 </head>
 <body>
-
+<%
+    if(ClientService.isEmpty()){
+        try {
+            ClientService.loadFromDB(DataBase);
+        } catch (ConnectionException e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+%>
 <header class="header">
     <div class="header_inner">
         <div class="logo"><a href="/taxi/beauties/html/auth_client.html"></a></div>

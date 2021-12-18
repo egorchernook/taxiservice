@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:useBean id="clientsList" class="controllers.ClientController" scope="application"/>
+<jsp:useBean id="ClientService" class="controllers.ClientController" scope="application"/>
 <jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
 
 <html>
@@ -19,18 +19,17 @@
     <title> Timmy</title>
 </head>
 <body>
-<p>aaaaa</p>
     <%
-        String login_ = request.getParameter("phone_number");
+        String phone_number = request.getParameter("phone_number");
         Integer password_ = request.getParameter("password").hashCode();
 
         String userType_ = request.getParameter("userType");
         if( userType_ != null ){
             switch ( userType_) {
                 case "client" :
-                    if ( clientsList.find(login_) != null ) {
-                        if(password_.equals(clientsList.find(login_).getPassword())) {
-                            currentClient.copy( clientsList.find(login_) );
+                    if ( ClientService.find(phone_number) != null ) {
+                        if(password_.equals(ClientService.find(phone_number).getPassword())) {
+                            currentClient.copy( ClientService.find(phone_number) );
                             %>
                                 <jsp:forward page="../index.jsp"/>
                             <%

@@ -19,8 +19,12 @@ public class ClientCollection
     public ClientCollection() {
     }
 
-    public ClientCollection(Map < Long, Client > DriverMap) {
-        this.clientMap = DriverMap;
+    public ClientCollection(Map < Long, Client > clientMap) {
+        this.clientMap = clientMap;
+    }
+
+    public boolean isEmpty(){
+        return clientMap.isEmpty();
     }
 
     @Override

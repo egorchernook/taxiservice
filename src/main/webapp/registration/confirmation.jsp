@@ -1,4 +1,4 @@
-<%--
+<%@ page import="people.users.client.Client" %><%--
   Created by IntelliJ IDEA.
   User: egor
   Date: 13.11.2021
@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
+<jsp:useBean id="ClientService" class="controllers.ClientController" scope="application"/>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="ru">
 <head>
@@ -23,6 +24,16 @@
             currentClient.setId(0L);
             %>
             <jsp:forward page="../index.jsp"/>
+            <%
+        }
+    }
+
+    String phone_number = request.getParameter("phone_number");
+    if(phone_number != null){
+        Client temp = ClientService.find(phone_number);
+        if( temp != null ){
+            %>
+            <jsp:forward page="../beauties/html/auth_client.html"/>
             <%
         }
     }
@@ -45,7 +56,7 @@
     </div>
 
     <%
-        String phone_number = request.getParameter("phone_number");
+
         if( phone_number != null ){
             currentClient.setPhoneNumber("phone_number");
             currentClient.setLogin("phone_number");

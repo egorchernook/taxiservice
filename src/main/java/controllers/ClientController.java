@@ -18,9 +18,8 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
-
-        this.add( new Client( 1L, "Егор", "+78888888888", "1".hashCode(), "+78888888888", 500, null ) );
         /*
+        this.add( new Client( 1L, "Егор", "+78888888888", "1".hashCode(), "+78888888888", 500, null ) );
         this.add( new Client( 2L, "Гоша", "+77777777777",  "1".hashCode(), "+77777777777", 500, null ) );
         this.add( new Client( 3L,  "Мадина", "+76666666666",  "1".hashCode(), "+76666666666", 500, null ) );
         this.add( new Client( 4L,  "Клава", "+75555555555",  "1".hashCode(), "+75555555555", 500, null) );
@@ -39,6 +38,10 @@ public class ClientController implements ConnectedWithDB<Client> {
         clientCollection.clear();
     }
 
+    public boolean isEmpty(){
+        return clientCollection.isEmpty();
+    }
+
     public Client find(String pattern){
         return clientCollection.find(pattern);
     }
@@ -50,14 +53,12 @@ public class ClientController implements ConnectedWithDB<Client> {
     @Override
     public void loadFromDB(ConnectDB connectDB) throws ConnectionException {
 
-        String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
-                                 + "Client.PHONE_NUMBER, Client.RATE"
-                                 + "FROM"
-                                 + "echernook.User"
-                                 + "echernook.Client"
-                                 + "WHERE Client.id_User = User.ID"
-                                 + "order by name";
+        String prepareStatement_ = "SELECT USERS.ID, USERS.NAME, USERS.LOGIN, USERS.PASSWORD, " +
+                "CLIENTS.PHONE_NUMBER, CLIENTS.RATE " +
+                "FROM echernook.USERS, echernook.CLIENTS " +
+                "WHERE CLIENTS.ID_USER = USERS.ID order by NAME";
 
+        System.out.println( prepareStatement_);
         try (
                 Connection connection = connectDB.getConnection();
 
@@ -74,15 +75,13 @@ public class ClientController implements ConnectedWithDB<Client> {
                                             resultSet.getInt(6),
                                 null);
 
-                    String orderPrepareStatement_ = "SELECT Order.ID, Order.NUM, Order.FEEDBACK, "
-                                                  + "Order.PRICE, Order.ORDER_DATE, Order_Status.NAME"
-                                                  + "FROM"
-                                                  + "echernook.Order"
-                                                  + "echernook.Order_Status"
-                                                  + "WHERE Order_Status.ID = Order.ID_Status"
-                                                  + "AND Order.ID = " + client.getId().toString();
+                    String orderPrepareStatement_ = "SELECT ORDERS.ID, ORDERS.NUM, ORDERS.FEEDBACK, ORDERS.PRICE, " +
+                            "ORDERS.ORDER_DATE, ORDER_STATUS.NAME " +
+                            "FROM echernook.ORDERS, echernook.ORDER_STATUS WHERE ORDER_STATUS.ID = ORDERS.ID_Status " +
+                            "AND ORDERS.ID = " + client.getId().toString();
 
                     OrderCollection orderCollection = new OrderCollection();
+                    System.out.println( orderPrepareStatement_);
                     try(
                             PreparedStatement orderStatement = connection.prepareStatement( orderPrepareStatement_);
                             ResultSet orderResultSet = orderStatement.executeQuery();
@@ -97,14 +96,15 @@ public class ClientController implements ConnectedWithDB<Client> {
                                                      orderResultSet.getInt(4),
                                                      orderResultSet.getDate(5));
 
-                            String addressPrepareStatement_ = "SELECT Address.NAME"
-                                                            + "FROM"
-                                                            + "echernook.Address"
-                                                            + "echernook.Order_Address"
-                                                            + "WHERE Order_Address.ID_ADDRESS = Address.id"
-                                                            + "AND Order_Address.ID_ORDER = " + order.getId().toString();
+                            String addressPrepareStatement_ = "SELECT Address.NAME " +
+                                    " FROM echernook.Address, " +
+                                    "echernook.Order_Address " +
+                                    "WHERE Order_Address.id_Address = Address.id " +
+                                    "AND Order_Address.id_Address = " + order.getId().toString();
 
                             AddressCollection addressCollection = new AddressCollection();
+
+                            System.out.println( addressPrepareStatement_);
                             try(
                                     PreparedStatement addressStatement = connection.prepareStatement( addressPrepareStatement_);
                                     ResultSet addressResultSet = addressStatement.executeQuery();
@@ -115,15 +115,15 @@ public class ClientController implements ConnectedWithDB<Client> {
                                     addressCollection.add( address );
                                 }
                             } catch (SQLException sqlException) {
-                                    System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
-                                    throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                                    System.err.println("userController loadUserStatusFromDB address loading" + sqlException.getMessage());
+                                    throw new ConnectionException("userController loadUserStatusFromDB address loading "+ sqlException.getMessage());
                             }
                             order.setAddressCollection( addressCollection);
                             orderCollection.add( order );
                         }
                     } catch (SQLException sqlException) {
-                        System.err.println("userController loadUserStatusFromDB"+ sqlException.getMessage());
-                        throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
+                        System.err.println("userController loadUserStatusFromDB order loading " + sqlException.getMessage());
+                        throw new ConnectionException("userController loadUserStatusFromDB order loading " + sqlException.getMessage());
                     }
 
                 client.setOrderCollection( orderCollection);
@@ -131,21 +131,21 @@ public class ClientController implements ConnectedWithDB<Client> {
             }
 
         } catch (SQLException sqlException) {
-            System.err.println("userController loadUserStatusFromDB" + sqlException.getMessage());
-            throw new ConnectionException("userController loadUserStatusFromDB"+ sqlException.getMessage());
+            System.err.println("clientsController loadFromDB cannot connect to DB " + sqlException.getMessage());
+            throw new ConnectionException("clientsController loadFromDB cannot connect to DB " + sqlException.getMessage());
         }
-        System.out.println("dataBase");
+        System.out.println("load clients from dataBase");
     }
 
     @Override
     public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) throws ConnectionException {
         Long newId = client.getId();
         if( isEdited ){
-            String query1 = "update echernook.User"
-                    + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?";
+            String query1 = "UPDATE echernook.Users "
+                    + " SET Name=?, Login=?, PASSWORD=? WHERE ID=?";
 
-            String query2 = "update echernook.Client"
-                    + " set PHOME_NUMBER=?, RATE=? where id_User=?";
+            String query2 = "UPDATE echernook.Clients "
+                    + " SET PHOME_NUMBER=?, RATE=? WHERE id_User=?";
             try(Connection connection = connectDB.getConnection() ){
 
                 try (PreparedStatement statement = connection.prepareStatement(query1)) {
@@ -157,10 +157,10 @@ public class ClientController implements ConnectedWithDB<Client> {
                     statement.executeUpdate();
                     connection.commit();
                 } catch (SQLException sqlException) {
-                    System.err.println("Cannot update user");
+                    System.err.println("Cannot update client");
                     sqlException.printStackTrace();
                     connection.rollback();
-                    throw new ConnectionException("Cannot update user" + sqlException.getMessage());
+                    throw new ConnectionException("Cannot update client" + sqlException.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -173,10 +173,10 @@ public class ClientController implements ConnectedWithDB<Client> {
                     statement.executeUpdate();
                     connection.commit();
                 } catch (SQLException sqlException) {
-                    System.err.println("Cannot update user");
+                    System.err.println("Cannot update client");
                     sqlException.printStackTrace();
                     connection.rollback();
-                    throw new ConnectionException("Cannot update user" + sqlException.getMessage());
+                    throw new ConnectionException("Cannot update client" + sqlException.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -189,8 +189,8 @@ public class ClientController implements ConnectedWithDB<Client> {
 
         } else {
             String main_query = "select echernook.MAIN_SEQUENCE.nextval from dual";
-            String query1 = "insert into echernook.User(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?)";
-            String query2 = "insert into echernook.Client(PHONE_NUMBER, RATE, id_User) values(?, ?, ?)";
+            String query1 = "insert into echernook.Users(ID, NAME, LOGIN, PASSWORD) values (?, ?, ?, ?)";
+            String query2 = "insert into echernook.Clients(PHONE_NUMBER, RATE, id_User) values(?, ?, ?)";
             try(Connection connection = connectDB.getConnection()){
 
 
@@ -216,10 +216,10 @@ public class ClientController implements ConnectedWithDB<Client> {
                     connection.commit();
 
                 } catch (SQLException exception) {
-                    System.err.println("Cannot create this parameter");
+                    System.err.println("Cannot save user part of client to DB");
                     exception.printStackTrace();
                     connection.rollback();
-                    throw new ConnectionException("Cannot update user" + exception.getMessage());
+                    throw new ConnectionException("Cannot save user part of client to DB" + exception.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -233,10 +233,10 @@ public class ClientController implements ConnectedWithDB<Client> {
                     connection.commit();
 
                 } catch (SQLException exception) {
-                    System.err.println("Cannot create this parameter");
+                    System.err.println("Cannot save client to DB");
                     exception.printStackTrace();
                     connection.rollback();
-                    throw new ConnectionException("Cannot update user" + exception.getMessage());
+                    throw new ConnectionException("Cannot save client to DB" + exception.getMessage());
                 }finally {
                     connectDB.closeConnection();
                 }
@@ -254,8 +254,8 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     @Override
     public void removeFromDB(ConnectDB connectDB, Long id_) throws ConnectionException {
-        String query1 = "DELETE FROM echernook.Client WHERE id_User=?";
-        String query2 = "DELETE FROM echernook.User WHERE id=?";
+        String query1 = "DELETE FROM echernook.Clients WHERE id_User=?";
+        String query2 = "DELETE FROM echernook.Users WHERE id=?";
         try (Connection connection = connectDB.getConnection()){
 
             try (PreparedStatement statement = connection.prepareStatement(query1)){
@@ -264,7 +264,7 @@ public class ClientController implements ConnectedWithDB<Client> {
 
             } catch (SQLException exception) {
                 System.err.println(exception.getMessage());
-                throw new ConnectionException("Cannot update user" + exception.getMessage());
+                throw new ConnectionException("Cannot remove user" + exception.getMessage());
             }finally {
                 connectDB.closeConnection();
             }
@@ -274,7 +274,7 @@ public class ClientController implements ConnectedWithDB<Client> {
 
             } catch (SQLException exception) {
                 System.err.println(exception.getMessage());
-                throw new ConnectionException("Cannot update user" + exception.getMessage());
+                throw new ConnectionException("Cannot remove user" + exception.getMessage());
             }finally {
                 connectDB.closeConnection();
             }
