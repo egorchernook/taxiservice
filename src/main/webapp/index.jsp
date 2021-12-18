@@ -69,7 +69,6 @@
                         String address_1_ = "";
                         String address_2_ = "";
 
-                        Iterator<Address> iter;
                         AddressCollection newAddressCollection = new AddressCollection();
 
                         String plus_str = request.getParameter("add_button");
@@ -178,7 +177,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=snd%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=snd%> required>
                                             </label>
                                         </div>
                                         <%
@@ -266,7 +265,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=trd%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=trd%> required>
                                             </label>
                                         </div>
                                         <%
@@ -382,7 +381,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=fth%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=fth%> required>
                                             </label>
                                         </div>
                                         <%

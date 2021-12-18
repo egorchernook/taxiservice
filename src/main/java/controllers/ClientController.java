@@ -18,11 +18,12 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
+
+        this.add( new Client( 1L, "Егор", "+78888888888", "1".hashCode(), "+78888888888", 500, null ) );
         /*
-        this.add( new Client( 1L, "Егор", "Егор", "1".hashCode(), "+78888888888", 500, null ) );
-        this.add( new Client( 2L, "Гоша", "Гоша",  "1".hashCode(), "+77777777777", 500, null ) );
-        this.add( new Client( 3L,  "Мадина", "Мадина",  "1".hashCode(), "+76666666666", 500, null ) );
-        this.add( new Client( 4L,  "Клава", "Клава",  "1".hashCode(), "+75555555555", 500, null) );
+        this.add( new Client( 2L, "Гоша", "+77777777777",  "1".hashCode(), "+77777777777", 500, null ) );
+        this.add( new Client( 3L,  "Мадина", "+76666666666",  "1".hashCode(), "+76666666666", 500, null ) );
+        this.add( new Client( 4L,  "Клава", "+75555555555",  "1".hashCode(), "+75555555555", 500, null) );
         */
     }
 
@@ -52,8 +53,8 @@ public class ClientController implements ConnectedWithDB<Client> {
         String prepareStatement_ = "SELECT User.ID, User.NAME, User.LOGIN, User.PASSWORD"
                                  + "Client.PHONE_NUMBER, Client.RATE"
                                  + "FROM"
-                                 + connectDB.getDBUsername() + ".User"
-                                 + connectDB.getDBUsername() + ".Client"
+                                 + "echernook.User"
+                                 + "echernook.Client"
                                  + "WHERE Client.id_User = User.ID"
                                  + "order by name";
 
@@ -76,8 +77,8 @@ public class ClientController implements ConnectedWithDB<Client> {
                     String orderPrepareStatement_ = "SELECT Order.ID, Order.NUM, Order.FEEDBACK, "
                                                   + "Order.PRICE, Order.ORDER_DATE, Order_Status.NAME"
                                                   + "FROM"
-                                                  + connectDB.getDBUsername() + ".Order"
-                                                  + connectDB.getDBUsername() + ".Order_Status"
+                                                  + "echernook.Order"
+                                                  + "echernook.Order_Status"
                                                   + "WHERE Order_Status.ID = Order.ID_Status"
                                                   + "AND Order.ID = " + client.getId().toString();
 
@@ -98,8 +99,8 @@ public class ClientController implements ConnectedWithDB<Client> {
 
                             String addressPrepareStatement_ = "SELECT Address.NAME"
                                                             + "FROM"
-                                                            + connectDB.getDBUsername() + ".Address"
-                                                            + connectDB.getDBUsername() + ".Order_Address"
+                                                            + "echernook.Address"
+                                                            + "echernook.Order_Address"
                                                             + "WHERE Order_Address.ID_ADDRESS = Address.id"
                                                             + "AND Order_Address.ID_ORDER = " + order.getId().toString();
 
@@ -140,10 +141,10 @@ public class ClientController implements ConnectedWithDB<Client> {
     public Long saveToDB(ConnectDB connectDB, Client client, boolean isEdited) throws ConnectionException {
         Long newId = client.getId();
         if( isEdited ){
-            String query1 = "update " + connectDB.getDBUsername() + ".User"
+            String query1 = "update echernook.User"
                     + " set NAME=?, LOGIN=?, PASSWORD=? where ID=?";
 
-            String query2 = "update " + connectDB.getDBUsername() + ".Client"
+            String query2 = "update echernook.Client"
                     + " set PHOME_NUMBER=?, RATE=? where id_User=?";
             try(Connection connection = connectDB.getConnection() ){
 
