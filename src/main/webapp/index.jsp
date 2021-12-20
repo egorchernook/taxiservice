@@ -42,7 +42,7 @@
 %>
 <header class="header">
     <div class="header_inner">
-        <div class="logo"><a href="/taxi/beauties/html/auth_client.html"></a></div>
+        <div class="logo"><a href="/taxi/authorization/auth_client.jsp"></a></div>
         <nav class="nav">
             <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Пользователям </a>
             <a class="nav_link" href="/taxi/beauties/img/oks.jpg"> Водителям </a>
@@ -51,8 +51,8 @@
             <%
                 if( currentClient.getId() == -1 ){
                     %>
-                    <a class="nav_link" href="/taxi/beauties/html/auth_client.html"> <div class="login"></div> Войти </a>
-                    <a class="reg" href="/taxi/beauties/html/reg.html"> Зарегистрироваться </a>
+                    <a class="nav_link" href="/taxi/authorization/auth_client.jsp"> <div class="login"></div> Войти </a>
+                    <a class="reg" href="/taxi/registration/reg.jsp"> Зарегистрироваться </a>
                     <%
                 } else {
                     %>
