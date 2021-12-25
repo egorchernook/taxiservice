@@ -18,8 +18,9 @@ public class ClientController implements ConnectedWithDB<Client> {
 
     //TODO: добавить записи в базу и проверить правильно ли работает контроллер. Если да - сделать такой же для драйвера и оператора.
     public ClientController() {
-        /*
+/*
         this.add( new Client( 1L, "Егор", "+78888888888", "1".hashCode(), "+78888888888", 500, null ) );
+
         this.add( new Client( 2L, "Гоша", "+77777777777",  "1".hashCode(), "+77777777777", 500, null ) );
         this.add( new Client( 3L,  "Мадина", "+76666666666",  "1".hashCode(), "+76666666666", 500, null ) );
         this.add( new Client( 4L,  "Клава", "+75555555555",  "1".hashCode(), "+75555555555", 500, null) );

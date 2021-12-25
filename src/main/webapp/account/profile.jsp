@@ -32,7 +32,7 @@
     </div>
     <div class="block_buttons">
       <div class="grey_button"> <a href="/taxi/account/order_history_client.jsp"> История поездок </a></div>
-      <div class="grey_button"> <a href="/taxi/account/im_client"> Личные данные </a></div>
+      <div class="grey_button"> <a href="/taxi/account/im_client.jsp"> Личные данные </a></div>
       <%--<div class="grey_button"> <a href=""> Доход </a></div>--%>
     </div>
   </div>

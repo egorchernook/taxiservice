@@ -11,8 +11,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Аутентификация</title>
-    <link rel="stylesheet" href="../css/style_auth_client.css">
-    <link rel="icon" href="../icons/logo.svg" type="image/x-icon"/>
+    <link rel="stylesheet" href="/taxi/beauties/css/style_auth_client.css">
+    <link rel="icon" href="/taxi/beauties/icons/logo.svg" type="image/x-icon"/>
 </head>
 <body>
 <div class="card">
@@ -21,7 +21,7 @@
         <a href="/taxi/index.jsp"><div class="card-title-logo"></div></a>
         <div class="card-title-name">Вход</div>
     </div>
-    <form action="" method="post">
+    <form action="/taxi/authorization/userAuth.jsp" method="post">
         <label>
             <span>Номер телефона</span>
             <input type="tel" name="phone_number" placeholder="+7 800 555 35 35" required>
@@ -30,6 +30,7 @@
             <span>Пароль</span>
             <input type="password" name="password" placeholder= ".........." required>
         </label>
+        <input type="hidden" name="userType" value="client">
         <button class="submit-button" type="submit">Войти</button>
     </form>
     <form action="/taxi/registration/reg.jsp" method="get">

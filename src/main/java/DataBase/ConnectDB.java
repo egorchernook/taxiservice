@@ -5,7 +5,7 @@ import oracle.jdbc.*;
 import oracle.jdbc.pool.OracleDataSource;
 
 public class ConnectDB {
-    static private final String URL = "jdbc:oracle:thin:@oracle.para-lab.ru:1521:XE";
+    static private final String URL = "jdbc:oracle:thin:@oracle:1521:XE";
     private String PASSWORD = "1";
     private String DBUsername = "ECHERNOOK";
     private OracleDataSource oracleDataSource;
