@@ -45,7 +45,7 @@
         </section>
         <aside></aside>
     </main>
-    <footer class="">Footer</footer>
+    <footer class=""></footer>
 </div>
 </body>
 </html>

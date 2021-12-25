@@ -66,7 +66,7 @@ public class User extends Person {
 
     @Override
     public String toString() {
-        return  "User{" +
+        return  "User{" + super.toString() +
                 "login='" + login + '\'' +
                 ", password=" + password +
                 '}';

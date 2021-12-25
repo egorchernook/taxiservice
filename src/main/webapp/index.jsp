@@ -31,6 +31,9 @@
 </head>
 <body>
 <%
+    request.setCharacterEncoding("UTF-8");
+%>
+<%
     if(ClientService.isEmpty()){
         try {
             ClientService.loadFromDB(DataBase);
@@ -169,7 +172,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value="<%=fst%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -187,7 +190,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=snd%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value="<%=snd%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -239,7 +242,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value="<%=fst%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -257,7 +260,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value="<%=snd%>" >
                                             </label>
                                         </div>
                                         <%
@@ -275,7 +278,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=trd%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value="<%=trd%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -337,7 +340,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value=<%=fst%> required>
+                                                <input type="text" name="landing_address" placeholder= "Укажите место посадки" autocomplete="on" value="<%=fst%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -355,7 +358,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value=<%=snd%> >
+                                                <input type="text" name="address_1" placeholder="Первая остановка" autocomplete="on" value="<%=snd%>" >
                                             </label>
                                         </div>
                                         <%
@@ -365,7 +368,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" >
+                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" required>
                                             </label>
                                         </div>
                                         <%
@@ -373,7 +376,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" value=<%=trd%>>
+                                                <input type="text" name="address_2" placeholder="Вторая остановка" autocomplete="on" value="<%=trd%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -391,7 +394,7 @@
                                         %>
                                         <div class="grey__button"> <i class="circle"></i>
                                             <label>
-                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value=<%=fth%> required>
+                                                <input type="text" name="destination_address" placeholder="Укажите пункт назначения" autocomplete="on" value="<%=fth%>" required>
                                             </label>
                                         </div>
                                         <%
@@ -404,22 +407,15 @@
                 </form>
 
                 <div class="block_buttons">
-                    <%--
-                    //TODO: починить кнопки
-                    --%>
                     <button type="submit" form="route" formaction="/taxi/index.jsp" name="add_button" value="pressed" class="plus-button"> <i class="plus"></i> Добавить остановку </button>
                     <button type="submit" form="route" formaction="/taxi/index.jsp" name="remove_button" value="pressed" class="plus-button"> <i class="cross"></i> Убрать остановку </button>
                 </div>
-                <button class="submit-button" type="submit" form="route"> Заказать сейчас </button>
-                <form id="pending order" action="" method="get"> <button> Запланировать заранее</button> </form>
-            </div>
-            <div class="map" id="map">
-
+                <form id="order" action="/taxi/order/order.jsp" method="post"><button class="submit-button" type="submit"> Заказать сейчас </button></form>
+                <form id="pending order" action="" method="post"> <button> Запланировать заранее</button> </form>
             </div>
 
-            <%--
-            //TODO: может быть сделать карту красивее. Также в mapbox можно менять её стиль.
-            --%>
+            <div class="map" id="map"></div>
+
             <script>
                 const map = new L.map('map').setView([54.9824, 73.3680], 13);
 

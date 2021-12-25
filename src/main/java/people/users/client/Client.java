@@ -81,7 +81,7 @@ public class Client extends User {
 
     @Override
     public String toString() {
-        return "Client{" +
+        return "Client{" + super.toString() +
                 "phoneNumber='" + phoneNumber + '\'' +
                 ", rate=" + rate +
                 ", orderCollection=" + orderCollection +

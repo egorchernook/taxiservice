@@ -27,6 +27,10 @@ public class ClientController implements ConnectedWithDB<Client> {
         */
     }
 
+    public ClientCollection getClientCollection() {
+        return clientCollection;
+    }
+
     public void add(Client client){
         clientCollection.add(client);
     }

@@ -1,4 +1,5 @@
-<%--
+<%@ page import="DataBase.ConnectionException" %>
+<%@ page import="java.util.Date" %><%--
   Created by IntelliJ IDEA.
   User: egor
   Date: 21.12.2021
@@ -7,6 +8,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <jsp:useBean id="currentClient" class="people.users.client.Client" scope="session"/>
+<jsp:useBean id="ClientService" class="controllers.ClientController" scope="application"/>
+<jsp:useBean id="DataBase" class="DataBase.ConnectDB" scope="application"/>
 <html lang = "en">
 <head>
     <meta charset = "UTF-8">
@@ -15,6 +18,9 @@
     <title> Timmy</title>
 </head>
 <body>
+<%
+    request.setCharacterEncoding("UTF-8");
+%>
 <div class="flex-container">
     <header>
         <nav>
@@ -33,38 +39,55 @@
                     <%
                 }
 
+                long ts = (new Date()).getTime();
+
                 String name = request.getParameter("name");
                 String login = request.getParameter("login");
                 String phone_number = request.getParameter("phone_number");
-                Integer password = request.getParameter("password").hashCode();
+                String password = request.getParameter("password");
 
-                if( password.equals(currentClient.getPassword())){
-                    if( name != null && !name.equals(currentClient.getName())){
-                        currentClient.setName(name);
-                    }
-                    if( login != null && !login.equals(currentClient.getLogin())){
-                        currentClient.setLogin(login);
-                    }
-                    if( phone_number != null && !phone_number.equals(currentClient.getPhoneNumber())){
-                        currentClient.setPhoneNumber(phone_number);
+                if( password != null ){
+                    Integer password_ = password.hashCode();
+                    if( password_.equals(currentClient.getPassword())) {
+                        if (name != null && !name.equals(currentClient.getName())) {
+                            currentClient.setName(name);
+                        }
+                        if (login != null && !login.equals(currentClient.getLogin())) {
+                            currentClient.setLogin(login);
+                        }
+                        if (phone_number != null && !phone_number.equals(currentClient.getPhoneNumber())) {
+                            currentClient.setPhoneNumber(phone_number);
+                        }
+
+                        try {
+                            ClientService.saveToDB(DataBase, currentClient, true);
+                        } catch (ConnectionException e) {
+                            System.err.println(e.getMessage());
+                            e.printStackTrace();
+                        }
                     }
                 }
             %>
-            <form class="form-column" action="/taxi/account/im_client.jsp">
+            <form class="form-column" action="/taxi/account/im_client.jsp" method="post">
                 <label class="input-label" for="name">
                     <span class="input-title">Имя</span>
                 </label>
-                <input class="input" type="text" name="name" id="name" placeholder=<%=currentClient.getName()%>>
+
+                <input type="hidden" name="lol" value=<%=ts%>>
+                <p>
+                    <%System.err.println(currentClient);%>
+                </p>
+                <input class="input" type="text" name="name" id="name" value="<%=currentClient.getName()%>">
 
                 <label class="input-label" for="login">
                     <span class="input-title">Логин</span>
                 </label>
-                <input class="input" type="text" name="login" id="login" placeholder=<%=currentClient.getLogin()%>>
+                <input class="input" type="text" name="login" id="login" value="<%=currentClient.getLogin()%>">
 
                 <label class="input-label" for="phone_number">
                     <span class="input-title">Номер телефона</span>
                 </label>
-                <input class="input" type="tel" name="phone_number" id="phone_number" placeholder=<%=currentClient.getPhoneNumber()%>>
+                <input class="input" type="tel" name="phone_number" id="phone_number" value="<%=currentClient.getPhoneNumber()%>">
 
                 <label class="input-label" for="password">
                     <span class="input-title">Пароль</span>
